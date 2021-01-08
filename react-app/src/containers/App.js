@@ -13,7 +13,7 @@ const App = ({user, logOut, logIn}) => {
           <Navbar user={user} logOut={logOut}/>
           <Switch>
             <Route exact path="/" render={() => <Home user={user}/>}/>
-            <Route exact path="/login" render={() => <Login logIn={logIn}/>}/>
+            <Route path="/login" render={() => <Login logIn={logIn} redirect={user.loggedIn}/>}/>
           </Switch>
       </BrowserRouter>
     </div>
@@ -31,8 +31,8 @@ const mapDispatchToProps = (dispatch) => {
         logOut: () => {
             dispatch(logOutAction())
         },
-        logIn: email => {
-            dispatch(logInOperation(email))
+        logIn: async email => {
+            return await logInOperation(email)(dispatch)
         }
     }
 }
