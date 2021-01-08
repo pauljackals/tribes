@@ -1,6 +1,6 @@
 import {Formik, Form, ErrorMessage, Field} from "formik"
 import {useState} from 'react'
-import {validateEmail} from "../functions";
+import {validateEmail} from "../../functions";
 
 const FormLogin = ({logIn}) => {
     const [error, setError] = useState(false)

@@ -1,6 +1,6 @@
 import {Formik, Form, ErrorMessage, Field} from "formik"
 import {useState} from 'react'
-import {validateEmail} from "../functions";
+import {validateEmail} from "../../functions";
 
 const FormRegister = ({register}) => {
     const INITIAL_ERRORS = {name: false, email: false}

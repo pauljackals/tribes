@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import {logOutAction} from "../actions/actionsUser";
 import {logInOperation, registerOperation} from "../operations/operationsUser";
 import Home from "../components/Home";
-import Login from "./Login";
-import Navbar from "../components/Navbar";
-import Register from "./Register";
+import Login from "./login/Login";
+import Navbar from "./Navbar";
+import Register from "./register/Register";
 
 const App = ({user, logOut, logIn, register}) => {
   return (
