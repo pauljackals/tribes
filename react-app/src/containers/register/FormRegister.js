@@ -33,7 +33,7 @@ const FormRegister = ({register}) => {
             }}
         >
             {() => (
-                <Form>
+                <Form onBlur={() => setErrors(INITIAL_ERRORS)}>
                     {errors.name ? <div className="error">Name must be unique</div> : ''}
                     <ErrorMessage name="name" component="div" className="error"/>
                     <Field name="name" type="text" placeholder="name" validate={validateName}/>
