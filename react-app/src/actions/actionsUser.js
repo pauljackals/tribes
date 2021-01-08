@@ -1,10 +1,11 @@
 import {LOG_IN, LOG_OUT} from "../types/typesUser";
 
-export const logInAction = (name, email) => {
+export const logInAction = (id, name, email) => {
     return {
         type: LOG_IN,
         payload: {
             user: {
+                id,
                 name,
                 email
             }
