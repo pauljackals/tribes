@@ -1,12 +1,13 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {logOutAction} from "../actions/actionsUser";
-import {logInOperation} from "../operations/operationsUser";
+import {logInOperation, registerOperation} from "../operations/operationsUser";
 import Home from "../components/Home";
 import Login from "./Login";
 import Navbar from "../components/Navbar";
+import Register from "./Register";
 
-const App = ({user, logOut, logIn}) => {
+const App = ({user, logOut, logIn, register}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -14,6 +15,7 @@ const App = ({user, logOut, logIn}) => {
           <Switch>
             <Route exact path="/" render={() => <Home user={user}/>}/>
             <Route path="/login" render={() => <Login logIn={logIn} redirect={user.loggedIn}/>}/>
+            <Route path="/register" render={() => <Register register={register} redirect={user.loggedIn}/>}/>
           </Switch>
       </BrowserRouter>
     </div>
@@ -33,6 +35,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         logIn: async email => {
             return await logInOperation(email)(dispatch)
+        },
+        register: async (name, email) => {
+            return await registerOperation(name, email)(dispatch)
         }
     }
 }

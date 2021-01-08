@@ -18,13 +18,31 @@ export const logInOperation = email => async dispatch => {
         }
     } catch (error) {
         console.log("LogIn operation error")
-        const status = error.response.status
-        const message = status===404 ? "Credentials don't match" : (
-            status===500 ? "Issue with server" : ''
-        )
         return {
             success: false,
-            message
+            status: error.response.status
+        }
+    }
+}
+
+export const registerOperation = (name, email) => async dispatch => {
+    try {
+        const response = await axios.post('http://localhost:5000/users', {name, email})
+        const user = response.data.user
+        dispatch(logInAction(user._id, user.name, user.email))
+        return {
+            success: true
+        }
+    } catch (error) {
+        console.log("Register operation error")
+        const response = error.response
+        const status = response.status
+        const keyPattern = status===409 ? response.data.error.keyPattern :
+            {}
+        return {
+            success: false,
+            status,
+            error: keyPattern
         }
     }
 }

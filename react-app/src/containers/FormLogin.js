@@ -1,14 +1,10 @@
 import {Formik, Form, ErrorMessage, Field} from "formik"
 import {useState} from 'react'
+import {validateEmail} from "../functions";
 
 const FormLogin = ({logIn}) => {
-    const [error, setError] = useState('')
-    const validateEmail = email => {
-        const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        if (!regex.test(email)){
-            return 'Invalid email'
-        }
-    }
+    const [error, setError] = useState(false)
+
     return (
         <Formik
             initialValues={
@@ -18,13 +14,13 @@ const FormLogin = ({logIn}) => {
                 setError('')
                 const result = await logIn(values.email)
                 if (!result.success) {
-                    setError(result.message)
+                    setError(true)
                 }
             }}
         >
             {() => (
-                <Form onBlur={() => setError('')}>
-                    {error.length>0 ? <div className="error">{error}</div> : ''}
+                <Form onBlur={() => setError(false)}>
+                    {error ? <div className="error">Credentials don't match</div> : ''}
                     <ErrorMessage name="email" component="div" className="error"/>
                     <Field name="email" type="text" placeholder="email" validate={validateEmail}/>
                     <button type="submit">login</button>

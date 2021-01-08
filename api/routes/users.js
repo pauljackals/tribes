@@ -6,10 +6,6 @@ const User = require('../models/User');
 router.get('/login/:email', async (req, res) => {
     const email = req.params.email;
     User.findOne({email}, (error, user) => {
-        if(error){
-            return res.status(500).send({error});
-
-        }
         const status = user===null ? 404 : 200
         return res.status(status).send({user});
     })
@@ -23,7 +19,7 @@ router.post('/', async (req, res) => {
     });
     userNew.save( (error, user) => {
         if(error){
-            return res.status(500).send({error});
+            return res.status(409).send({error});
         }
         return res.send({user});
     })
