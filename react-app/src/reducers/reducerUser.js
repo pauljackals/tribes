@@ -1,4 +1,4 @@
-import {LOG_IN, LOG_OUT} from "../types/typesUser";
+import {LOG_IN, LOG_OUT, JOIN_WORLD} from "../types/typesUser";
 
 const INITIAL_STATE = {
     id: '',
@@ -21,6 +21,8 @@ const reducerUser = (state=INITIAL_STATE, action) => {
             }
         } case LOG_OUT: {
             return INITIAL_STATE
+        } case JOIN_WORLD: {
+            return {...state, worlds: [...state.worlds, action.payload._id]}
         } default: {
             return state
         }

@@ -1,20 +1,20 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {logOutAction} from "../actions/actionsUser";
-import {logInOperation, registerOperation} from "../operations/operationsUser";
+import {logInOperation, registerOperation, joinWorldOperation} from "../operations/operationsUser";
 import {fetchWorldsOperation} from "../operations/operationsWorlds";
 import Home from "./Home";
 import Login from "./login/Login";
 import Navbar from "./Navbar";
 import Register from "./register/Register";
 
-const App = ({user, logOut, logIn, register, worlds, fetchWorlds}) => {
+const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld}) => {
   return (
     <div className="App">
       <BrowserRouter>
           <Navbar user={user} logOut={logOut}/>
           <Switch>
-            <Route exact path="/" render={() => <Home user={user} worlds={worlds} fetchWorlds={fetchWorlds}/>}/>
+            <Route exact path="/" render={() => <Home user={user} worlds={worlds} fetchWorlds={fetchWorlds} joinWorld={joinWorld}/>}/>
             <Route path="/login" render={() => <Login logIn={logIn} redirect={user.loggedIn}/>}/>
             <Route path="/register" render={() => <Register register={register} redirect={user.loggedIn}/>}/>
           </Switch>
@@ -43,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         fetchWorlds: async () => {
             return await fetchWorldsOperation()(dispatch)
+        },
+        joinWorld: (idUser, idWorld) => {
+            dispatch(joinWorldOperation(idUser, idWorld))
         }
     }
 }

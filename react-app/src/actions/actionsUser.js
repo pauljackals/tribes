@@ -1,4 +1,4 @@
-import {LOG_IN, LOG_OUT} from "../types/typesUser";
+import {LOG_IN, LOG_OUT, JOIN_WORLD} from "../types/typesUser";
 
 export const logInAction = (id, name, email, worlds) => {
     return {
@@ -16,4 +16,8 @@ export const logInAction = (id, name, email, worlds) => {
 
 export const logOutAction = () => {
     return {type: LOG_OUT}
+}
+
+export const joinWorldAction = _id => {
+    return {type: JOIN_WORLD, payload: {_id}}
 }

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-const Home = ({user, worlds, fetchWorlds}) => {
+const Home = ({user, worlds, fetchWorlds, joinWorld}) => {
     const [error, setError] = useState(false)
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const Home = ({user, worlds, fetchWorlds}) => {
                             (
                                 user.worlds.find(worldUser => worldUser===world._id) ?
                                     <button>play</button> :
-                                    <button>join</button>
+                                    <button onClick={() => joinWorld(user.id, world._id)}>join</button>
                             ) : ''}
                     </li>
                 )}

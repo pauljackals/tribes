@@ -4,3 +4,6 @@ export const validateEmail = email => {
         return 'Invalid email'
     }
 }
+export const getAxiosUrl = endpoint => {
+    return `http://localhost:5000${endpoint}`
+}
