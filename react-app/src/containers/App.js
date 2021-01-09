@@ -14,7 +14,7 @@ const App = ({user, logOut, logIn, register, worlds, fetchWorlds}) => {
       <BrowserRouter>
           <Navbar user={user} logOut={logOut}/>
           <Switch>
-            <Route exact path="/" render={() => <Home loggedIn={user.loggedIn} worlds={worlds} fetchWorlds={fetchWorlds}/>}/>
+            <Route exact path="/" render={() => <Home user={user} worlds={worlds} fetchWorlds={fetchWorlds}/>}/>
             <Route path="/login" render={() => <Login logIn={logIn} redirect={user.loggedIn}/>}/>
             <Route path="/register" render={() => <Register register={register} redirect={user.loggedIn}/>}/>
           </Switch>

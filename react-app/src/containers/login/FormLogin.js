@@ -13,7 +13,6 @@ const FormLogin = ({logIn}) => {
             }
             onSubmit={async (values) => {
                 const result = await logIn(values.email)
-                console.log(result)
                 if (!result.success) {
                     setErrors({
                         email: !!result.status,

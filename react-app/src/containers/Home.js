@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-const Home = ({loggedIn, worlds, fetchWorlds}) => {
+const Home = ({user, worlds, fetchWorlds}) => {
     const [error, setError] = useState(false)
 
     useEffect(() => {
@@ -10,7 +10,7 @@ const Home = ({loggedIn, worlds, fetchWorlds}) => {
                 setError(true)
             }
         }
-        fetchWorldsAsync()
+        fetchWorldsAsync().then()
     }, [fetchWorlds, setError]);
 
     return (
@@ -22,7 +22,12 @@ const Home = ({loggedIn, worlds, fetchWorlds}) => {
                 {worlds.map((world, index) =>
                     <li key={index}>
                         <span>World {world.id}</span>
-                        {loggedIn ? <button>join</button> : ''}
+                        {user.loggedIn ?
+                            (
+                                user.worlds.find(worldUser => worldUser===world._id) ?
+                                    <button>play</button> :
+                                    <button>join</button>
+                            ) : ''}
                     </li>
                 )}
             </ul>

@@ -1,13 +1,14 @@
 import {LOG_IN, LOG_OUT} from "../types/typesUser";
 
-export const logInAction = (id, name, email) => {
+export const logInAction = (id, name, email, worlds) => {
     return {
         type: LOG_IN,
         payload: {
             user: {
                 id,
                 name,
-                email
+                email,
+                worlds
             }
         }
     }

@@ -4,7 +4,8 @@ const INITIAL_STATE = {
     id: '',
     name: '',
     email: '',
-    loggedIn: false
+    loggedIn: false,
+    worlds: []
 }
 
 const reducerUser = (state=INITIAL_STATE, action) => {
@@ -15,7 +16,8 @@ const reducerUser = (state=INITIAL_STATE, action) => {
                 id: user.id,
                 name: user.name,
                 email: user.email,
-                loggedIn: true
+                loggedIn: true,
+                worlds: user.worlds
             }
         } case LOG_OUT: {
             return INITIAL_STATE

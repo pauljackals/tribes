@@ -1,14 +1,19 @@
 import axios from 'axios'
 import {logInAction} from "../actions/actionsUser";
 
+const commonLogIn = (dispatch, response) => {
+    const user = response.data.user
+    dispatch(logInAction(user._id, user.name, user.email, user.worlds))
+    return {
+        success: true
+    }
+}
+
 export const logInOperation = email => async dispatch => {
     try {
         const response = await axios.get(`http://localhost:5000/users/login/${email}`)
-        const user = response.data.user
-        dispatch(logInAction(user._id, user.name, user.email))
-        return {
-            success: true
-        }
+        return commonLogIn(dispatch, response)
+
     } catch (error) {
         console.log("LogIn operation error")
         const response = error.response
@@ -22,11 +27,8 @@ export const logInOperation = email => async dispatch => {
 export const registerOperation = (name, email) => async dispatch => {
     try {
         const response = await axios.post('http://localhost:5000/users', {name, email})
-        const user = response.data.user
-        dispatch(logInAction(user._id, user.name, user.email))
-        return {
-            success: true
-        }
+        return commonLogIn(dispatch, response)
+
     } catch (error) {
         console.log("Register operation error")
         const response = error.response
