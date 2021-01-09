@@ -3,7 +3,8 @@ import {useState} from 'react'
 import {validateEmail} from "../../functions";
 
 const FormLogin = ({logIn}) => {
-    const [error, setError] = useState(false)
+    const INITIAL_ERRORS = {connection: false, email: false}
+    const [errors, setErrors] = useState(INITIAL_ERRORS)
 
     return (
         <Formik
@@ -11,16 +12,21 @@ const FormLogin = ({logIn}) => {
                 {email: ''}
             }
             onSubmit={async (values) => {
-                setError('')
                 const result = await logIn(values.email)
+                console.log(result)
                 if (!result.success) {
-                    setError(true)
+                    setErrors({
+                        email: !!result.status,
+                        connection: !result.status
+                    })
                 }
             }}
         >
             {() => (
-                <Form onBlur={() => setError(false)}>
-                    {error ? <div className="error">Credentials don't match</div> : ''}
+                <Form onBlur={() => setErrors(INITIAL_ERRORS)}>
+                    {errors.connection ? <div className="error">Connection error</div> : ''}
+                    {errors.email ? <div className="error">Credentials don't match</div> : ''}
+
                     <ErrorMessage name="email" component="div" className="error"/>
                     <Field name="email" type="text" placeholder="email" validate={validateEmail}/>
                     <button type="submit">login</button>

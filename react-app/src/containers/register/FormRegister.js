@@ -3,7 +3,7 @@ import {useState} from 'react'
 import {validateEmail} from "../../functions";
 
 const FormRegister = ({register}) => {
-    const INITIAL_ERRORS = {name: false, email: false}
+    const INITIAL_ERRORS = {name: false, email: false, connection: false}
     const [errors, setErrors] = useState(INITIAL_ERRORS)
 
     const validateName = name => {
@@ -21,19 +21,21 @@ const FormRegister = ({register}) => {
                 }
             }
             onSubmit={async (values) => {
-                setErrors(INITIAL_ERRORS)
                 const result = await register(values.name, values.email)
                 if (!result.success) {
                     const resultError = result.error
                     setErrors({
                         name: !!resultError.name,
-                        email: !!resultError.email
+                        email: !!resultError.email,
+                        connection: !result.status
                     })
                 }
             }}
         >
             {() => (
                 <Form onBlur={() => setErrors(INITIAL_ERRORS)}>
+                    {errors.connection ? <div className="error">Connection error</div> : ''}
+
                     {errors.name ? <div className="error">Name must be unique</div> : ''}
                     <ErrorMessage name="name" component="div" className="error"/>
                     <Field name="name" type="text" placeholder="name" validate={validateName}/>
