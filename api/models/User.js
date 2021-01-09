@@ -16,7 +16,13 @@ const userSchema = new Schema({
         required: true,
         unique: true,
         validate: validateEmail
-    }
+    },
+    worlds: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'World'
+        }
+    ]
 });
 
 module.exports = model('User', userSchema);

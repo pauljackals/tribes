@@ -25,4 +25,14 @@ router.post('/', async (req, res) => {
     })
 });
 
+router.patch('/:id/world', async (req, res) => {
+    const id = req.params.id;
+    const idWorld = req.body.idWorld;
+    User.findByIdAndUpdate(id, {$push: {
+        worlds: idWorld
+    }}, {new: true}, (error, user) => {
+        return res.send({user});
+    })
+})
+
 module.exports = router;
