@@ -3,12 +3,14 @@ const cors = require('cors');
 const app = express();
 const users = require('./routes/users');
 const worlds = require('./routes/worlds');
+const villages = require('./routes/villages');
 
 app.use(cors())
 app.use(express.json());
 
 app.use('/users', users);
 app.use('/worlds', worlds);
+app.use('/villages', villages);
 
 require('dotenv').config();
 const dbConnData = {

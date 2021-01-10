@@ -7,7 +7,7 @@ const Navbar = ({user, logOut}) => {
             {
                 user.loggedIn ?
                     <>
-                        <span>{user.name}</span>
+                        <span>{user.name}({user.email})</span>
                         <Link to="/"><button onClick={() => logOut()}>logout</button></Link>
                     </>:
 

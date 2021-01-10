@@ -1,5 +1,7 @@
 import axios from "axios";
-import {setWorldsAction} from "../actions/actionsWorlds";
+import {setWorldsAction, setWorldAction} from "../actions/actionsWorlds";
+import {getAxiosUrl} from "../functions";
+import {generateBoardAction, boardAddVillagesAction} from "../actions/actionsBoard";
 
 export const fetchWorldsOperation = () => async dispatch => {
     try {
@@ -9,9 +11,21 @@ export const fetchWorldsOperation = () => async dispatch => {
             success: true
         }
     } catch (error) {
-        console.log("Worlds fetch operation error")
+        console.log("fetchWorlds operation error")
         return {
             success: false
         }
     }
+}
+
+export const playWorldOperation = idWorld => dispatch => {
+    axios.get(getAxiosUrl(`/worlds/${idWorld}`))
+        .then(res => {
+            const world = res.data.world
+            dispatch(setWorldAction(world))
+            dispatch(generateBoardAction(world.size))
+            dispatch(boardAddVillagesAction(world.villages))
+        }).catch(() => {
+        console.log("playWorld operation error")
+    })
 }

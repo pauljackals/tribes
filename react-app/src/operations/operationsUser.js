@@ -2,9 +2,9 @@ import axios from 'axios'
 import {logInAction, joinWorldAction} from "../actions/actionsUser";
 import {getAxiosUrl} from "../functions";
 
-const commonLogIn = (dispatch, response) => {
+const commonLogIn = (dispatch, response, email) => {
     const user = response.data.user
-    dispatch(logInAction(user._id, user.name, user.email, user.worlds))
+    dispatch(logInAction(user._id, user.name, email, user.worlds))
     return {
         success: true
     }
@@ -13,7 +13,7 @@ const commonLogIn = (dispatch, response) => {
 export const logInOperation = email => async dispatch => {
     try {
         const response = await axios.get(getAxiosUrl(`/users/login/${email}`))
-        return commonLogIn(dispatch, response)
+        return commonLogIn(dispatch, response, email)
 
     } catch (error) {
         console.log("logIn operation error")
@@ -28,7 +28,7 @@ export const logInOperation = email => async dispatch => {
 export const registerOperation = (name, email) => async dispatch => {
     try {
         const response = await axios.post(getAxiosUrl('/users'), {name, email})
-        return commonLogIn(dispatch, response)
+        return commonLogIn(dispatch, response, email)
 
     } catch (error) {
         console.log("register operation error")
@@ -44,11 +44,17 @@ export const registerOperation = (name, email) => async dispatch => {
     }
 }
 
-export const joinWorldOperation = (idUser, idWorld) => dispatch => {
-    axios.patch(getAxiosUrl(`/users/${idUser}/world`), {idWorld})
-        .then(() => {
-            dispatch(joinWorldAction(idWorld))
-        }).catch(() => {
-            console.log("joinWorld operation error")
-        })
+export const joinWorldOperation = (idUser, idWorld) => async dispatch => {
+    try {
+        await axios.post(getAxiosUrl(`/villages`), {idUser, idWorld})
+        dispatch(joinWorldAction(idWorld))
+        return {
+            success: true
+        }
+    } catch {
+        console.log("joinWorld operation error")
+        return {
+            success: false
+        }
+    }
 }

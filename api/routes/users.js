@@ -5,10 +5,14 @@ const User = require('../models/User');
 
 router.get('/login/:email', async (req, res) => {
     const email = req.params.email;
-    User.findOne({email}, (error, user) => {
-        const status = user===null ? 404 : 200
-        return res.status(status).send({user});
-    })
+    const user = await User.findOne({email}).select('-email')
+    const status = user===null ? 404 : 200
+    return res.status(status).send({user});
+});
+
+router.get('/', async (req, res) => {
+    const users = await User.find().select('name')
+    return res.send({users});
 });
 
 router.post('/', async (req, res) => {
@@ -24,15 +28,5 @@ router.post('/', async (req, res) => {
         return res.send({user});
     })
 });
-
-router.patch('/:id/world', async (req, res) => {
-    const id = req.params.id;
-    const idWorld = req.body.idWorld;
-    User.findByIdAndUpdate(id, {$push: {
-        worlds: idWorld
-    }}, {new: true}, (error, user) => {
-        return res.send({user});
-    })
-})
 
 module.exports = router;

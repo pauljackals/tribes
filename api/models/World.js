@@ -5,7 +5,24 @@ const worldSchema = new Schema({
         type: Number,
         required: true,
         unique: true
-    }
+    },
+    size: {
+        type: Number,
+        required: true,
+        default: 10
+    },
+    users: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    villages: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Village'
+        }
+    ]
 });
 
 module.exports = model('World', worldSchema);
