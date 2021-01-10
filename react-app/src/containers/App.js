@@ -8,7 +8,7 @@ import Home from "./Home";
 import Login from "./login/Login";
 import Navbar from "./Navbar";
 import Register from "./register/Register";
-import World from "./World";
+import World from "./world/World";
 
 const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, clearBoard, board, playWorld}) => {
   return (

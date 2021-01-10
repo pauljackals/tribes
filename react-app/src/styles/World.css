@@ -19,15 +19,19 @@
     font-size: initial;
     position: absolute;
     z-index: 1;
-    left: 0;
-    top: 0;
+    left: -60px;
+    top: -25px;
     background-color: grey;
     display: none;
     padding: 10px;
+    width: 150px;
 }
 .name-popup.you {
     font-style: italic;
 }
 td:hover .name-popup {
+    display: block;
+}
+.name-popup span {
     display: block;
 }
