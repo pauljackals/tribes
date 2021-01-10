@@ -11,6 +11,16 @@ const World = ({user, worlds, id, board, playWorld}) => {
 
     const world = worlds.find(world => world._id === id)
 
+    const getField = (field, indexField) => {
+        const fieldUser = field.village && world.users.find(user => user._id===field.village.user)
+        const sameUser = fieldUser && fieldUser._id===user.id
+        return (
+            <td key={indexField} className={fieldUser ? `village ${sameUser ? 'you' : 'other'}` : ''}>
+                {fieldUser && '⌂'}
+            </td>
+        )
+    }
+
     return (
         <div className="World">
             {!user.loggedIn ?
@@ -21,9 +31,7 @@ const World = ({user, worlds, id, board, playWorld}) => {
                     <table className="board">
                         <tbody>
                             {board.map((row, indexRow) => <tr key={indexRow}>
-                                {row.map((field, indexField) => <td key={indexField}>
-                                    {field.village ? world.users.find(user => user._id===field.village.user).name : ''}
-                                </td>)}
+                                {row.map((field, indexField) => getField(field, indexField))}
                             </tr>)}
                         </tbody>
                     </table>
