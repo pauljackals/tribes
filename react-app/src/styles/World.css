@@ -8,6 +8,7 @@
     background-color: forestgreen;
     position: relative;
     user-select: none;
+    -moz-user-select: none;
 }
 td.village {
     background-color: saddlebrown;
@@ -45,6 +46,12 @@ td:hover .name-popup {
 .players {
     border-collapse: collapse;
 }
-.players td {
+.players td, th {
     border: 1px solid black;
+    text-align: left;
+}
+.players th {
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
 }

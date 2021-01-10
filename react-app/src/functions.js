@@ -7,3 +7,4 @@ export const validateEmail = email => {
 export const getAxiosUrl = endpoint => {
     return `http://localhost:5000${endpoint}`
 }
+export const defaultVillageName = userName => `${userName}'s village`
