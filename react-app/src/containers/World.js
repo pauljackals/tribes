@@ -13,10 +13,10 @@ const World = ({user, worlds, id, board, playWorld}) => {
 
     const getField = (field, indexField) => {
         const fieldUser = field.village && world.users.find(user => user._id===field.village.user)
-        const sameUser = fieldUser && fieldUser._id===user.id
+        const sameUser = fieldUser && fieldUser._id===user._id
         return (
             <td key={indexField} className={fieldUser ? `village ${sameUser ? 'you' : 'other'}` : ''}>
-                {fieldUser && '⌂'}
+                {fieldUser && <>⌂<span className={`name-popup${sameUser ? ' you' : ''}`}>{fieldUser.name}</span></>}
             </td>
         )
     }

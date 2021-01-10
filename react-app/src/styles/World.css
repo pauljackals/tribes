@@ -6,6 +6,7 @@
     width: 50px;
     height: 50px;
     background-color: forestgreen;
+    position: relative;
 }
 .board td.village {
     background-color: saddlebrown;
@@ -13,4 +14,20 @@
 }
 .board td.village.you {
     background-color: white;
+}
+.name-popup {
+    font-size: initial;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    background-color: grey;
+    display: none;
+    padding: 10px;
+}
+.name-popup.you {
+    font-style: italic;
+}
+td:hover .name-popup {
+    display: block;
 }

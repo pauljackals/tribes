@@ -1,16 +1,9 @@
 import {LOG_IN, LOG_OUT, JOIN_WORLD} from "../types/typesUser";
 
-export const logInAction = (id, name, email, worlds) => {
+export const logInAction = (user) => {
     return {
         type: LOG_IN,
-        payload: {
-            user: {
-                id,
-                name,
-                email,
-                worlds
-            }
-        }
+        payload: {user}
     }
 }
 

@@ -38,8 +38,7 @@ const Home = ({user, worlds, fetchWorlds, joinWorld, clearBoard}) => {
                             (
                                 user.worlds.find(worldUser => worldUser===world._id) ?
                                     <Link to={`/world/${world._id}`}><button>play</button></Link> :
-                                    // <button onClick={() => joinWorld(user.id, world._id)}>join</button>
-                                    <button onClick={() => joinButtonHandle(user.id, world._id)}>join</button>
+                                    <button onClick={() => joinButtonHandle(user._id, world._id)}>join</button>
                             ) : ''}
                     </li>
                 )}

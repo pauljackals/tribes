@@ -13,11 +13,8 @@ const reducerUser = (state=INITIAL_STATE, action) => {
         case LOG_IN: {
             const user = action.payload.user
             return {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                loggedIn: true,
-                worlds: user.worlds
+                ...user,
+                loggedIn: true
             }
         } case LOG_OUT: {
             return INITIAL_STATE

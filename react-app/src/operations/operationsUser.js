@@ -4,7 +4,7 @@ import {getAxiosUrl} from "../functions";
 
 const commonLogIn = (dispatch, response, email) => {
     const user = response.data.user
-    dispatch(logInAction(user._id, user.name, email, user.worlds))
+    dispatch(logInAction({...user, email}))
     return {
         success: true
     }
