@@ -7,31 +7,44 @@
     height: 50px;
     background-color: forestgreen;
     position: relative;
+    user-select: none;
 }
-.board td.village {
+td.village {
     background-color: saddlebrown;
     font-size: 40px;
+    text-align: center;
 }
-.board td.village.you {
+td.village.you {
     background-color: white;
 }
 .name-popup {
     font-size: initial;
     position: absolute;
-    z-index: 1;
+    z-index: -1;
     left: -60px;
     top: -25px;
     background-color: grey;
-    display: none;
+    display: block;
     padding: 10px;
     width: 150px;
+    opacity: 0;
+    transition: 0s opacity;
 }
 .name-popup.you {
     font-style: italic;
 }
 td:hover .name-popup {
-    display: block;
+    transition-delay: 1s;
+    opacity: 1;
+    z-index: 1;
 }
 .name-popup span {
     display: block;
+}
+
+.players {
+    border-collapse: collapse;
+}
+.players td {
+    border: 1px solid black;
 }
