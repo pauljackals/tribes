@@ -39,4 +39,10 @@ router.post('/', async (req, res) => {
     return res.send({village})
 })
 
+router.get('/:id/details', async (req, res) => {
+    const id = req.params.id
+    const village = await Village.findById(id).populate('world user', '-villages -users -size -email -worlds')
+    return res.send({village})
+})
+
 module.exports = router;

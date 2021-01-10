@@ -4,13 +4,16 @@ import {logOutAction} from "../actions/actionsUser";
 import {clearBoardAction} from "../actions/actionsBoard";
 import {logInOperation, registerOperation, joinWorldOperation} from "../operations/operationsUser";
 import {fetchWorldsOperation, playWorldOperation} from "../operations/operationsWorlds";
+import {getVillageDetailsOperation} from "../operations/operationsVillages";
+import {setVillageAction} from "../actions/actionsVillage";
 import Home from "./Home";
 import Login from "./login/Login";
 import Navbar from "./Navbar";
 import Register from "./register/Register";
 import World from "./world/World";
+import VillageDetails from "./world/village/VillageDetails";
 
-const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, clearBoard, board, playWorld}) => {
+const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, clearBoard, board, playWorld, village, getVillageDetails, setVillage}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -44,8 +47,17 @@ const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, cle
                     worlds={worlds}
                     board={board}
                     playWorld={playWorld}
+                    setVillage={setVillage}
                 />}
             />
+              <Route exact path="/world/:idWorld/village/:id/details" render={props =>
+                  <VillageDetails
+                      id={props.match.params.id}
+                      user={user}
+                      village={village}
+                      getVillageDetails={getVillageDetails}
+                  />}
+              />
           </Switch>
       </BrowserRouter>
     </div>
@@ -56,7 +68,8 @@ const mapStateToProps = (state) => {
     return {
         user: state.reducerUser,
         worlds: state.reducerWorlds,
-        board: state.reducerBoard
+        board: state.reducerBoard,
+        village: state.reducerVillage
     }
 }
 
@@ -82,6 +95,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         playWorld: idWorld => {
             dispatch(playWorldOperation(idWorld))
+        },
+        getVillageDetails: idVillage => {
+            dispatch(getVillageDetailsOperation(idVillage))
+        },
+        setVillage: village => {
+            dispatch(setVillageAction(village))
         }
     }
 }

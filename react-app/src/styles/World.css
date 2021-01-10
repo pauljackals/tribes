@@ -18,6 +18,10 @@ td.village {
 td.village.you {
     background-color: white;
 }
+.village a {
+    text-decoration: none;
+    color: black;
+}
 .name-popup {
     font-size: initial;
     position: absolute;
