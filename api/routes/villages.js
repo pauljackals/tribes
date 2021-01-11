@@ -45,4 +45,11 @@ router.get('/:id/details', async (req, res) => {
     return res.send({village})
 })
 
+router.patch('/:id', async (req, res) => {
+    const id = req.params.id
+    const name = req.body.name
+    const village = await Village.findByIdAndUpdate(id, {name: (name===undefined ? null : name)}, {new: true}).populate('world user', '-villages -users -size -email -worlds')
+    return res.send({village})
+})
+
 module.exports = router;

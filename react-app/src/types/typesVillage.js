@@ -1,1 +1,3 @@
 export const SET_VILLAGE = 'SET_VILLAGE'
+export const RESET_VILLAGE = 'RESET_VILLAGE'
+export const SET_VILLAGE_NAME = 'SET_VILLAGE_NAME'

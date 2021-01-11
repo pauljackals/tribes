@@ -4,8 +4,8 @@ import {logOutAction} from "../actions/actionsUser";
 import {clearBoardAction} from "../actions/actionsBoard";
 import {logInOperation, registerOperation, joinWorldOperation} from "../operations/operationsUser";
 import {fetchWorldsOperation, playWorldOperation} from "../operations/operationsWorlds";
-import {getVillageDetailsOperation} from "../operations/operationsVillages";
-import {setVillageAction} from "../actions/actionsVillage";
+import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage";
+import {resetVillageAction} from "../actions/actionsVillage";
 import Home from "./Home";
 import Login from "./login/Login";
 import Navbar from "./Navbar";
@@ -13,7 +13,7 @@ import Register from "./register/Register";
 import World from "./world/World";
 import VillageDetails from "./world/village/VillageDetails";
 
-const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, clearBoard, board, playWorld, village, getVillageDetails, setVillage}) => {
+const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, clearBoard, board, playWorld, village, getVillageDetails, resetVillage, patchVillageName}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -47,7 +47,7 @@ const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, cle
                     worlds={worlds}
                     board={board}
                     playWorld={playWorld}
-                    setVillage={setVillage}
+                    resetVillage={resetVillage}
                 />}
             />
               <Route exact path="/world/:idWorld/village/:id/details" render={props =>
@@ -56,6 +56,7 @@ const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, cle
                       user={user}
                       village={village}
                       getVillageDetails={getVillageDetails}
+                      patchVillageName={patchVillageName}
                   />}
               />
           </Switch>
@@ -99,8 +100,11 @@ const mapDispatchToProps = (dispatch) => {
         getVillageDetails: idVillage => {
             dispatch(getVillageDetailsOperation(idVillage))
         },
-        setVillage: village => {
-            dispatch(setVillageAction(village))
+        resetVillage: () => {
+            dispatch(resetVillageAction())
+        },
+        patchVillageName: (idVillage, name) => {
+            dispatch(patchVillageNameOperation(idVillage, name))
         }
     }
 }
