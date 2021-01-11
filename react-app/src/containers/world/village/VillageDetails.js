@@ -29,7 +29,7 @@ const VillageDetails = ({id, user, village, getVillageDetails, patchVillageName}
             {Object.keys(village).length ?
                 <>
                     <h1>World {village.world.id}</h1>
-                    <Link to={location => location.pathname.split('/village/')[0]}><button>return</button></Link>
+                    <Link to={location => location.pathname.split('/village')[0]}><button>return</button></Link>
                     <h2>{
                         !edit ?
                             <>

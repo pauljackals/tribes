@@ -33,7 +33,7 @@ td.village.you {
     padding: 10px;
     width: 150px;
     opacity: 0;
-    transition: 0s opacity;
+    transition: 0s all step-end;
 }
 .name-popup.you {
     font-style: italic;
@@ -50,7 +50,7 @@ td:hover .name-popup {
 .players {
     border-collapse: collapse;
 }
-.players td, th {
+.players td, .players th {
     border: 1px solid black;
     text-align: left;
 }

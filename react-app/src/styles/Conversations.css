@@ -1,0 +1,9 @@
+.conversations {
+    border-collapse: collapse;
+}
+.conversations td, .conversations th {
+    border: 1px solid black;
+}
+.conversations td span {
+    display: block;
+}

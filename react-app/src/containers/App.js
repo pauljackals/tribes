@@ -4,7 +4,8 @@ import {logOutAction} from "../actions/actionsUser";
 import {clearBoardAction} from "../actions/actionsBoard";
 import {logInOperation, registerOperation, joinWorldOperation} from "../operations/operationsUser";
 import {fetchWorldsOperation, playWorldOperation} from "../operations/operationsWorlds";
-import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage";
+import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
+import {getConversationsOperation} from "../operations/operationsConversations";
 import {resetVillageAction} from "../actions/actionsVillage";
 import Home from "./Home";
 import Login from "./login/Login";
@@ -12,8 +13,9 @@ import Navbar from "./Navbar";
 import Register from "./register/Register";
 import World from "./world/World";
 import VillageDetails from "./world/village/VillageDetails";
+import Conversations from './world/conversations/Conversations'
 
-const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, clearBoard, board, playWorld, village, getVillageDetails, resetVillage, patchVillageName}) => {
+const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, clearBoard, board, playWorld, village, getVillageDetails, resetVillage, patchVillageName, conversations, getConversations}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -59,6 +61,15 @@ const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, cle
                       patchVillageName={patchVillageName}
                   />}
               />
+              <Route exact path="/world/:idWorld/conversations" render={props =>
+                  <Conversations
+                      user={user}
+                      idWorld={props.match.params.idWorld}
+                      conversations={conversations}
+                      getConversations={getConversations}
+                      worlds={worlds}
+                  />}
+              />
           </Switch>
       </BrowserRouter>
     </div>
@@ -70,7 +81,8 @@ const mapStateToProps = (state) => {
         user: state.reducerUser,
         worlds: state.reducerWorlds,
         board: state.reducerBoard,
-        village: state.reducerVillage
+        village: state.reducerVillage,
+        conversations: state.reducerConversations
     }
 }
 
@@ -105,6 +117,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         patchVillageName: (idVillage, name) => {
             dispatch(patchVillageNameOperation(idVillage, name))
+        },
+        getConversations: (idUser, idWorld) => {
+            dispatch(getConversationsOperation(idUser, idWorld))
         }
     }
 }

@@ -1,4 +1,4 @@
-import {Redirect} from "react-router-dom";
+import {Redirect, Link} from "react-router-dom";
 import {useEffect} from 'react'
 import '../../styles/World.css'
 import Board from "./board/Board";
@@ -21,6 +21,7 @@ const World = ({user, worlds, id, board, playWorld, resetVillage}) => {
 
                 <>
                     <h1>World {world.id}</h1>
+                    <Link to={location => `${location.pathname}/conversations`}><button>conversations</button></Link>
                     <Board users={world.users} board={board} user={user}/>
                     {board.length ? <Players world={world}/> : ''}
                 </>
