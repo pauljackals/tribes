@@ -1,8 +1,8 @@
-import {SET_CONVERSATIONS} from "../types/typesConversations";
+import {CONVERSATIONS_SUCCESS} from "../types/typesConversations";
 
 const reducerConversations = (state=[], action) => {
     switch (action.type) {
-        case SET_CONVERSATIONS: {
+        case CONVERSATIONS_SUCCESS: {
             return action.payload.conversations
         } default: {
             return state

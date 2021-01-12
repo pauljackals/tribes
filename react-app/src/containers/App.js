@@ -6,7 +6,6 @@ import {logInOperation, registerOperation, joinWorldOperation} from "../operatio
 import {fetchWorldsOperation, playWorldOperation} from "../operations/operationsWorlds";
 import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
 import {getConversationsOperation} from "../operations/operationsConversations";
-import {resetVillageAction} from "../actions/actionsVillage";
 import Home from "./Home";
 import Login from "./login/Login";
 import Navbar from "./Navbar";
@@ -15,7 +14,7 @@ import World from "./world/World";
 import VillageDetails from "./world/village/VillageDetails";
 import Conversations from './world/conversations/Conversations'
 
-const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, clearBoard, board, playWorld, village, getVillageDetails, resetVillage, patchVillageName, conversations, getConversations}) => {
+const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, clearBoard, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -49,7 +48,6 @@ const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, cle
                     worlds={worlds}
                     board={board}
                     playWorld={playWorld}
-                    resetVillage={resetVillage}
                 />}
             />
               <Route exact path="/world/:idWorld/village/:id/details" render={props =>
@@ -111,9 +109,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         getVillageDetails: idVillage => {
             dispatch(getVillageDetailsOperation(idVillage))
-        },
-        resetVillage: () => {
-            dispatch(resetVillageAction())
         },
         patchVillageName: (idVillage, name) => {
             dispatch(patchVillageNameOperation(idVillage, name))

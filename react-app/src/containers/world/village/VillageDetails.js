@@ -4,10 +4,8 @@ import {Link} from "react-router-dom";
 
 const VillageDetails = ({id, user, village, getVillageDetails, patchVillageName}) => {
     useEffect(() => {
-        if(user.loggedIn) {
-            getVillageDetails(id)
-        }
-    }, [id, user, getVillageDetails]);
+        getVillageDetails(id)
+    }, [id, getVillageDetails]);
 
     const [edit, setEdit] = useState(false)
     const [villageNameNew, setVillageNameNew] = useState('')
@@ -19,8 +17,7 @@ const VillageDetails = ({id, user, village, getVillageDetails, patchVillageName}
     }
     const saveHandle = () => {
         setEdit(false)
-        const villageNameToSend = villageNameNew.length ? villageNameNew : undefined
-        patchVillageName(village._id, villageNameToSend)
+        patchVillageName(village._id, villageNameNew)
         setVillageNameNew('')
     }
 

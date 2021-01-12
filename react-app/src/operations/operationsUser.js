@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {logInAction, joinWorldAction} from "../actions/actionsUser";
-import {getAxiosUrl} from "../functions";
+import {getApiUrl} from "../functions";
 
 const commonLogIn = (dispatch, response, email) => {
     const user = response.data.user
@@ -12,7 +12,7 @@ const commonLogIn = (dispatch, response, email) => {
 
 export const logInOperation = email => async dispatch => {
     try {
-        const response = await axios.get(getAxiosUrl(`/users/login/${email}`))
+        const response = await axios.get(getApiUrl(`/users/login/${email}`))
         return commonLogIn(dispatch, response, email)
 
     } catch (error) {
@@ -27,7 +27,7 @@ export const logInOperation = email => async dispatch => {
 
 export const registerOperation = (name, email) => async dispatch => {
     try {
-        const response = await axios.post(getAxiosUrl('/users'), {name, email})
+        const response = await axios.post(getApiUrl('/users'), {name, email})
         return commonLogIn(dispatch, response, email)
 
     } catch (error) {
@@ -46,7 +46,7 @@ export const registerOperation = (name, email) => async dispatch => {
 
 export const joinWorldOperation = (idUser, idWorld) => async dispatch => {
     try {
-        await axios.post(getAxiosUrl(`/villages`), {idUser, idWorld})
+        await axios.post(getApiUrl(`/villages`), {idUser, idWorld})
         dispatch(joinWorldAction(idWorld))
         return {
             success: true

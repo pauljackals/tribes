@@ -1,7 +1,10 @@
 const { Schema, model } = require('mongoose');
 
 const villageSchema = new Schema({
-    name: String,
+    name: {
+        type: String,
+        default: ''
+    },
     world: {
         type: Schema.Types.ObjectId,
         ref: 'World'

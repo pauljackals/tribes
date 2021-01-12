@@ -4,7 +4,7 @@ export const validateEmail = email => {
         return 'Invalid email'
     }
 }
-export const getAxiosUrl = endpoint => {
+export const getApiUrl = endpoint => {
     return `http://localhost:5000${endpoint}`
 }
 export const defaultVillageName = userName => `${userName}'s village`

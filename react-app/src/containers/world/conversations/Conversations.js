@@ -4,9 +4,7 @@ import '../../../styles/Conversations.css'
 
 const Conversations = ({user, idWorld, conversations, getConversations, worlds}) => {
     useEffect(() => {
-        if(user.loggedIn) {
-            getConversations(user._id, idWorld)
-        }
+        getConversations(user._id, idWorld)
     }, [idWorld, user, getConversations]);
 
     const world = worlds.find(world => world._id === idWorld)

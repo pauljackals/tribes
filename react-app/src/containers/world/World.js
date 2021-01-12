@@ -4,13 +4,12 @@ import '../../styles/World.css'
 import Board from "./board/Board";
 import Players from "./Players";
 
-const World = ({user, worlds, id, board, playWorld, resetVillage}) => {
+const World = ({user, worlds, id, board, playWorld}) => {
     useEffect(() => {
         if(user.loggedIn) {
             playWorld(id)
         }
-        resetVillage()
-    }, [playWorld, user, id, resetVillage]);
+    }, [playWorld, user, id]);
 
     const world = worlds.find(world => world._id === id)
 

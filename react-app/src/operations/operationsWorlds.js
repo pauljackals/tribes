@@ -1,6 +1,6 @@
 import axios from "axios";
 import {setWorldsAction, setWorldAction} from "../actions/actionsWorlds";
-import {getAxiosUrl} from "../functions";
+import {getApiUrl} from "../functions";
 import {generateBoardAction, boardAddVillagesAction} from "../actions/actionsBoard";
 
 export const fetchWorldsOperation = () => async dispatch => {
@@ -19,7 +19,7 @@ export const fetchWorldsOperation = () => async dispatch => {
 }
 
 export const playWorldOperation = idWorld => dispatch => {
-    axios.get(getAxiosUrl(`/worlds/${idWorld}`))
+    axios.get(getApiUrl(`/worlds/${idWorld}`))
         .then(res => {
             const world = res.data.world
             dispatch(setWorldAction(world))

@@ -1,4 +1,4 @@
-import {SET_VILLAGE, RESET_VILLAGE, SET_VILLAGE_NAME} from "../types/typesVillage";
+import {VILLAGE_GET_SUCCESS, VILLAGE_PATCH_SUCCESS} from "../types/typesVillage";
 
 const INITIAL_STATE = {
     __v: -1,
@@ -15,18 +15,17 @@ const INITIAL_STATE = {
     world: {
         __v: -1,
         _id: '',
-        id: 0
-    }
+        id: -1
+    },
+    name: ''
 }
 
 const reducerVillage = (state=INITIAL_STATE, action) => {
     switch (action.type) {
-        case SET_VILLAGE: {
+        case VILLAGE_GET_SUCCESS: {
             return action.payload.village
-        } case RESET_VILLAGE: {
-            return INITIAL_STATE
-        } case SET_VILLAGE_NAME: {
-            return {...state, name: action.payload.name}
+        } case VILLAGE_PATCH_SUCCESS: {
+            return {...state, ...action.payload}
         } default: {
             return state
         }
