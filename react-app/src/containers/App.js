@@ -1,7 +1,6 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux'
-import {logOutAction} from "../actions/actionsUser";
-import {clearBoardAction} from "../actions/actionsBoard";
+import {logOutAction, userClearErrorsAction} from "../actions/actionsUser";
 import {logInOperation, registerOperation, joinWorldOperation} from "../operations/operationsUser";
 import {fetchWorldsOperation, playWorldOperation} from "../operations/operationsWorlds";
 import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
@@ -14,7 +13,7 @@ import World from "./world/World";
 import VillageDetails from "./world/village/VillageDetails";
 import Conversations from './world/conversations/Conversations'
 
-const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, clearBoard, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations}) => {
+const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -26,12 +25,13 @@ const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, cle
                     worlds={worlds}
                     fetchWorlds={fetchWorlds}
                     joinWorld={joinWorld}
-                    clearBoard={clearBoard}
                 />}
             />
             <Route path="/login" render={() =>
                 <Login
                     logIn={logIn}
+                    userErrors={userErrors}
+                    userClearErrors={userClearErrors}
                     redirect={user.loggedIn}
                 />}
             />
@@ -76,7 +76,8 @@ const App = ({user, logOut, logIn, register, worlds, fetchWorlds, joinWorld, cle
 
 const mapStateToProps = (state) => {
     return {
-        user: state.reducerUser,
+        user: state.reducerUser.user,
+        userErrors: state.reducerUser.errors,
         worlds: state.reducerWorlds,
         board: state.reducerBoard,
         village: state.reducerVillage,
@@ -89,8 +90,11 @@ const mapDispatchToProps = (dispatch) => {
         logOut: () => {
             dispatch(logOutAction())
         },
-        logIn: async email => {
-            return await logInOperation(email)(dispatch)
+        userClearErrors: () => {
+            dispatch(userClearErrorsAction())
+        },
+        logIn: email => {
+            dispatch(logInOperation(email))
         },
         register: async (name, email) => {
             return await registerOperation(name, email)(dispatch)
@@ -100,9 +104,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         joinWorld: async (idUser, idWorld) => {
             return await joinWorldOperation(idUser, idWorld)(dispatch)
-        },
-        clearBoard: () => {
-            dispatch(clearBoardAction())
         },
         playWorld: idWorld => {
             dispatch(playWorldOperation(idWorld))

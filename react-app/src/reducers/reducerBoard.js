@@ -1,4 +1,4 @@
-import {BOARD_ADD_VILLAGES, CLEAR_BOARD, GENERATE_BOARD} from "../types/typesBoard";
+import {BOARD_ADD_VILLAGES, GENERATE_BOARD} from "../types/typesBoard";
 
 const generateBoard = size => Array(size).fill([]).map(
     (x, indexX) => Array(size).fill({}).map(
@@ -20,8 +20,6 @@ const reducerBoard = (state=[], action) => {
                     return location
                 }
             }))
-        } case CLEAR_BOARD: {
-            return []
         } default: {
             return state
         }

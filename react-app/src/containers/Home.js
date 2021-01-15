@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Link, Redirect} from "react-router-dom";
 
-const Home = ({user, worlds, fetchWorlds, joinWorld, clearBoard}) => {
+const Home = ({user, worlds, fetchWorlds, joinWorld}) => {
     const [error, setError] = useState(false)
     const [redirect, setRedirect] = useState('')
 
@@ -12,9 +12,8 @@ const Home = ({user, worlds, fetchWorlds, joinWorld, clearBoard}) => {
                 setError(true)
             }
         }
-        clearBoard()
         fetchWorldsAsync().then()
-    }, [fetchWorlds, setError, clearBoard]);
+    }, [fetchWorlds, setError]);
 
     const joinButtonHandle = async (idUser, idWorld) => {
         const result = await joinWorld(idUser, idWorld)

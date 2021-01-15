@@ -1,13 +1,16 @@
 import FormLogin from "./FormLogin";
-import {Redirect} from "react-router-dom";
+import {Redirect} from 'react-router-dom'
 
-const Login = ({logIn, redirect}) => {
+const Login = ({logIn, userErrors, userClearErrors, redirect}) => {
     return (
-        <div className="Login">
-            {redirect ? <Redirect push to="/"/> : ''}
-            <h1>Login</h1>
-            <FormLogin logIn={logIn}/>
-        </div>
+        <>{
+            redirect ?
+                <Redirect to={'/'}/> :
+                <div className="Login">
+                    <h1>Login</h1>
+                    <FormLogin logIn={logIn} userErrors={userErrors} userClearErrors={userClearErrors}/>
+                </div>
+        }</>
     )
 }
 export default Login

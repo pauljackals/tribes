@@ -1,6 +1,8 @@
 import axios from 'axios'
+import {createAction} from "redux-api-middleware";
 import {logInAction, joinWorldAction} from "../actions/actionsUser";
 import {getApiUrl} from "../functions";
+import {LOG_IN_REQUEST, LOG_IN_FAILURE, LOG_IN_SUCCESS} from "../types/typesUser";
 
 const commonLogIn = (dispatch, response, email) => {
     const user = response.data.user
@@ -10,20 +12,35 @@ const commonLogIn = (dispatch, response, email) => {
     }
 }
 
-export const logInOperation = email => async dispatch => {
-    try {
-        const response = await axios.get(getApiUrl(`/users/login/${email}`))
-        return commonLogIn(dispatch, response, email)
-
-    } catch (error) {
-        console.log("logIn operation error")
-        const response = error.response
-        return {
-            success: false,
-            status: response ? response.status : response,
-        }
-    }
-}
+export const logInOperation = email => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl(`/users/login/${email}`),
+        method: 'GET',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        types: [
+            LOG_IN_REQUEST,
+            {
+                type: LOG_IN_SUCCESS,
+                payload: async (action, state, res) => {
+                    const body = await res.json()
+                    return {user: {...body.user, email}}
+                }
+            },
+            {
+                type: LOG_IN_FAILURE,
+                payload: async (action, state, res) => {
+                    return {
+                        errors: {
+                            email: !!res.status
+                        }
+                    }
+                }
+            },
+        ]
+    }))
 
 export const registerOperation = (name, email) => async dispatch => {
     try {
