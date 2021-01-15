@@ -38,6 +38,8 @@ const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds
             <Route path="/register" render={() =>
                 <Register
                     register={register}
+                    userErrors={userErrors}
+                    userClearErrors={userClearErrors}
                     redirect={user.loggedIn}
                 />}
             />
@@ -96,8 +98,8 @@ const mapDispatchToProps = (dispatch) => {
         logIn: email => {
             dispatch(logInOperation(email))
         },
-        register: async (name, email) => {
-            return await registerOperation(name, email)(dispatch)
+        register: (name, email) => {
+            dispatch(registerOperation(name, email))
         },
         fetchWorlds: async () => {
             return await fetchWorldsOperation()(dispatch)

@@ -1,4 +1,7 @@
-import {LOG_OUT, JOIN_WORLD, USER_CLEAR_ERRORS, LOG_IN_SUCCESS, LOG_IN_FAILURE} from "../types/typesUser";
+import {LOG_OUT, JOIN_WORLD, USER_CLEAR_ERRORS,
+    LOG_IN_SUCCESS, LOG_IN_FAILURE,
+    REGISTER_SUCCESS, REGISTER_FAILURE
+} from "../types/typesUser";
 
 const INITIAL_STATE = {
     user: {
@@ -9,12 +12,14 @@ const INITIAL_STATE = {
         worlds: []
     },
     errors: {
-        email: false
+        email: false,
+        name: false
     }
 }
 
 const reducerUser = (state=INITIAL_STATE, action) => {
     switch (action.type) {
+        case REGISTER_SUCCESS:
         case LOG_IN_SUCCESS: {
             return {
                 ...state,
@@ -23,9 +28,12 @@ const reducerUser = (state=INITIAL_STATE, action) => {
                     loggedIn: true
                 }
             }
-        } case LOG_IN_FAILURE: {
+        } case REGISTER_FAILURE:
+        case LOG_IN_FAILURE: {
             return {...state, errors: {...INITIAL_STATE.errors, ...action.payload.errors}}
 
+        } case USER_CLEAR_ERRORS: {
+            return {...state, errors: INITIAL_STATE.errors}
         } case LOG_OUT: {
             return INITIAL_STATE
         } case JOIN_WORLD: {
@@ -36,8 +44,6 @@ const reducerUser = (state=INITIAL_STATE, action) => {
                     worlds: [...state.user.worlds, action.payload._id]
                 }
             }
-        } case USER_CLEAR_ERRORS: {
-            return {...state, errors: INITIAL_STATE.errors}
         } default: {
             return state
         }

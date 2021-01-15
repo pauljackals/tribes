@@ -1,13 +1,16 @@
 import {Redirect} from "react-router-dom";
 import FormRegister from "./FormRegister";
 
-const Register = ({register, redirect}) => {
+const Register = ({register, redirect, userClearErrors, userErrors}) => {
     return (
-        <div className="Register">
-            {redirect ? <Redirect push to="/"/> : ''}
-            <h1>Register</h1>
-            <FormRegister register={register}/>
-        </div>
+        <>{
+            redirect ?
+                <Redirect to="/"/> :
+                <div className="Register">
+                    <h1>Register</h1>
+                    <FormRegister register={register} userClearErrors={userClearErrors} userErrors={userErrors}/>
+                </div>
+        }</>
     )
 }
 export default Register

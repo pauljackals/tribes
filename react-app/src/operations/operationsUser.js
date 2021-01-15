@@ -1,16 +1,11 @@
 import axios from 'axios'
 import {createAction} from "redux-api-middleware";
-import {logInAction, joinWorldAction} from "../actions/actionsUser";
+import {joinWorldAction} from "../actions/actionsUser";
 import {getApiUrl} from "../functions";
-import {LOG_IN_REQUEST, LOG_IN_FAILURE, LOG_IN_SUCCESS} from "../types/typesUser";
-
-const commonLogIn = (dispatch, response, email) => {
-    const user = response.data.user
-    dispatch(logInAction({...user, email}))
-    return {
-        success: true
-    }
-}
+import {
+    LOG_IN_REQUEST, LOG_IN_FAILURE, LOG_IN_SUCCESS,
+    REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS
+} from "../types/typesUser";
 
 export const logInOperation = email => dispatch =>
     dispatch(createAction({
@@ -31,10 +26,10 @@ export const logInOperation = email => dispatch =>
             },
             {
                 type: LOG_IN_FAILURE,
-                payload: async (action, state, res) => {
+                payload: (action, state, res) => {
                     return {
                         errors: {
-                            email: !!res.status
+                            email: res.status===404
                         }
                     }
                 }
@@ -42,24 +37,39 @@ export const logInOperation = email => dispatch =>
         ]
     }))
 
-export const registerOperation = (name, email) => async dispatch => {
-    try {
-        const response = await axios.post(getApiUrl('/users'), {name, email})
-        return commonLogIn(dispatch, response, email)
-
-    } catch (error) {
-        console.log("register operation error")
-        const response = error.response
-        const status = response ? response.status : response
-        const keyPattern = status===409 ? response.data.error.keyPattern :
-            {}
-        return {
-            success: false,
-            status,
-            error: keyPattern
-        }
-    }
-}
+export const registerOperation = (name, email) => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl('/users'),
+        method: 'POST',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({name, email}),
+        types: [
+            REGISTER_REQUEST,
+            {
+                type: REGISTER_SUCCESS,
+                payload: async (action, state, res) => {
+                    const body = await res.json()
+                    return {user: body.user}
+                }
+            },
+            {
+                type: REGISTER_FAILURE,
+                payload: async (action, state, res) => {
+                    const body = await res.json()
+                    const errors = body.error.keyPattern
+                    return {
+                        errors: {
+                            email: !!errors.email,
+                            name: !!errors.name
+                        }
+                    }
+                }
+            },
+        ]
+    }))
 
 export const joinWorldOperation = (idUser, idWorld) => async dispatch => {
     try {
