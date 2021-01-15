@@ -1,10 +1,9 @@
-import axios from 'axios'
 import {createAction} from "redux-api-middleware";
-import {joinWorldAction} from "../actions/actionsUser";
 import {getApiUrl} from "../functions";
 import {
     LOG_IN_REQUEST, LOG_IN_FAILURE, LOG_IN_SUCCESS,
-    REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS
+    REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS,
+    JOIN_WORLD_FAILURE, JOIN_WORLD_REQUEST, JOIN_WORLD_SUCCESS
 } from "../types/typesUser";
 
 export const logInOperation = email => dispatch =>
@@ -48,13 +47,7 @@ export const registerOperation = (name, email) => dispatch =>
         body: JSON.stringify({name, email}),
         types: [
             REGISTER_REQUEST,
-            {
-                type: REGISTER_SUCCESS,
-                payload: async (action, state, res) => {
-                    const body = await res.json()
-                    return {user: body.user}
-                }
-            },
+            REGISTER_SUCCESS,
             {
                 type: REGISTER_FAILURE,
                 payload: async (action, state, res) => {
@@ -71,17 +64,24 @@ export const registerOperation = (name, email) => dispatch =>
         ]
     }))
 
-export const joinWorldOperation = (idUser, idWorld) => async dispatch => {
-    try {
-        await axios.post(getApiUrl(`/villages`), {idUser, idWorld})
-        dispatch(joinWorldAction(idWorld))
-        return {
-            success: true
-        }
-    } catch {
-        console.log("joinWorld operation error")
-        return {
-            success: false
-        }
-    }
-}
+export const joinWorldOperation = (idUser, idWorld) => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl('/villages'),
+        method: 'POST',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({idWorld, idUser}),
+        types: [
+            JOIN_WORLD_REQUEST,
+            {
+                type: JOIN_WORLD_SUCCESS,
+                payload: async (action, state, res) => {
+                    const body = await res.json()
+                    return {world: body.village.world}
+                }
+            },
+            JOIN_WORLD_FAILURE
+        ]
+    }))

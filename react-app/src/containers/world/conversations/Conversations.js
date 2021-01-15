@@ -2,12 +2,11 @@ import {Link} from "react-router-dom";
 import {useEffect} from 'react'
 import '../../../styles/Conversations.css'
 
-const Conversations = ({user, idWorld, conversations, getConversations, worlds}) => {
+const Conversations = ({user, idWorld, conversations, getConversations, world}) => {
     useEffect(() => {
         getConversations(user._id, idWorld)
     }, [idWorld, user, getConversations]);
 
-    const world = worlds.find(world => world._id === idWorld)
     return (
         <div className="Conversations">
             <h1>World {world ? world.id : ''}</h1>

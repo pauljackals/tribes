@@ -2,33 +2,22 @@ import {useEffect, useState} from "react";
 import {Link, Redirect} from "react-router-dom";
 
 const Home = ({user, worlds, fetchWorlds, joinWorld}) => {
-    const [error, setError] = useState(false)
-    const [redirect, setRedirect] = useState('')
+    const [joining, setJoining] = useState('')
 
     useEffect(() => {
-        const fetchWorldsAsync = async () => {
-            const result = await fetchWorlds()
-            if(result && !result.success) {
-                setError(true)
-            }
-        }
-        fetchWorldsAsync().then()
-    }, [fetchWorlds, setError]);
+        fetchWorlds()
+    }, [fetchWorlds]);
 
-    const joinButtonHandle = async (idUser, idWorld) => {
-        const result = await joinWorld(idUser, idWorld)
-        if(result.success){
-            setRedirect(`/world/${idWorld}`)
-        }
+    const joinButtonHandle = (idUser, idWorld) => {
+        joinWorld(idUser, idWorld)
+        setJoining(idWorld)
     }
 
     return (
         <div className="Home">
-            {redirect ? <Redirect push to={redirect}/> : ''}
+            {user.worlds.find(world => world===joining) ? <Redirect push to={`/world/${joining}`}/> : ''}
 
             <h1>Home</h1>
-            {error ? <div className="error">Connection error</div> : ''}
-
             <ul>
                 {worlds.map((world, index) =>
                     <li key={index}>

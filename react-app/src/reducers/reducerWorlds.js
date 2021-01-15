@@ -1,8 +1,8 @@
-import {SET_WORLDS, SET_WORLD} from "../types/typesWorlds";
+import {SET_WORLD, WORLDS_GET_SUCCESS} from "../types/typesWorlds";
 
 const reducerWorlds = (state=[], action) => {
     switch (action.type) {
-        case SET_WORLDS: {
+        case WORLDS_GET_SUCCESS: {
             return action.payload.worlds
         } case SET_WORLD: {
             const worldPayload = action.payload.world

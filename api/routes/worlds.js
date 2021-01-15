@@ -4,9 +4,8 @@ const router = express.Router();
 const World = require('../models/World');
 
 router.get('/', async (req, res) => {
-    World.find((error, worlds) => {
-        return res.send({worlds});
-    })
+    const worlds = await World.find().select('-villages -users -size')
+    return res.send({worlds});
 });
 
 router.get('/:id', async (req, res) => {

@@ -2,7 +2,8 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {logOutAction, userClearErrorsAction} from "../actions/actionsUser";
 import {logInOperation, registerOperation, joinWorldOperation} from "../operations/operationsUser";
-import {fetchWorldsOperation, playWorldOperation} from "../operations/operationsWorlds";
+import {fetchWorldsOperation} from "../operations/operationsWorlds";
+import {playWorldOperation} from "../operations/operationsWorld";
 import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
 import {getConversationsOperation} from "../operations/operationsConversations";
 import Home from "./Home";
@@ -13,7 +14,7 @@ import World from "./world/World";
 import VillageDetails from "./world/village/VillageDetails";
 import Conversations from './world/conversations/Conversations'
 
-const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations}) => {
+const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -47,7 +48,7 @@ const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds
                 <World
                     id={props.match.params.id}
                     user={user}
-                    worlds={worlds}
+                    world={world}
                     board={board}
                     playWorld={playWorld}
                 />}
@@ -67,7 +68,7 @@ const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds
                       idWorld={props.match.params.idWorld}
                       conversations={conversations}
                       getConversations={getConversations}
-                      worlds={worlds}
+                      world={world}
                   />}
               />
           </Switch>
@@ -81,6 +82,7 @@ const mapStateToProps = (state) => {
         user: state.reducerUser.user,
         userErrors: state.reducerUser.errors,
         worlds: state.reducerWorlds,
+        world: state.reducerWorld,
         board: state.reducerBoard,
         village: state.reducerVillage,
         conversations: state.reducerConversations
@@ -101,11 +103,11 @@ const mapDispatchToProps = (dispatch) => {
         register: (name, email) => {
             dispatch(registerOperation(name, email))
         },
-        fetchWorlds: async () => {
-            return await fetchWorldsOperation()(dispatch)
+        fetchWorlds: () => {
+            dispatch(fetchWorldsOperation())
         },
-        joinWorld: async (idUser, idWorld) => {
-            return await joinWorldOperation(idUser, idWorld)(dispatch)
+        joinWorld: (idUser, idWorld) => {
+            dispatch(joinWorldOperation(idUser, idWorld))
         },
         playWorld: idWorld => {
             dispatch(playWorldOperation(idWorld))

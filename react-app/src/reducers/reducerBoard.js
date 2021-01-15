@@ -1,4 +1,4 @@
-import {BOARD_ADD_VILLAGES, GENERATE_BOARD} from "../types/typesBoard";
+import {WORLD_GET_SUCCESS} from "../types/typesWorld";
 
 const generateBoard = size => Array(size).fill([]).map(
     (x, indexX) => Array(size).fill({}).map(
@@ -8,12 +8,11 @@ const generateBoard = size => Array(size).fill([]).map(
 
 const reducerBoard = (state=[], action) => {
     switch (action.type) {
-        case GENERATE_BOARD: {
-            return generateBoard(action.payload.size)
-        } case BOARD_ADD_VILLAGES: {
-            const villages = action.payload.villages
-            return state.map(x => x.map(location => {
-                const village = villages.find(village => village.location.x===location.x && village.location.y===location.y)
+        case WORLD_GET_SUCCESS: {
+            const world = action.payload.world
+            const board = generateBoard(world.size)
+            return board.map(x => x.map(location => {
+                const village = world.villages.find(village => village.location.x===location.x && village.location.y===location.y)
                 if(village) {
                     return {...location, village}
                 } else {
