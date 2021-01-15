@@ -5,6 +5,7 @@ const users = require('./routes/users');
 const worlds = require('./routes/worlds');
 const villages = require('./routes/villages');
 const conversations = require('./routes/conversations');
+const messages = require('./routes/messages');
 
 app.use(cors())
 app.use(express.json());
@@ -13,6 +14,7 @@ app.use('/users', users);
 app.use('/worlds', worlds);
 app.use('/villages', villages);
 app.use('/conversations', conversations);
+app.use('/messages', messages);
 
 require('dotenv').config();
 const dbConnData = {

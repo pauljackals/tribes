@@ -16,13 +16,16 @@ const Conversations = ({user, idWorld, conversations, getConversations, world}) 
             <table className="conversations">
                 <tbody>
                     <tr>
+                        <th>Title</th>
                         <th>Users</th>
                         <th>Messages</th>
                     </tr>
                     {conversations.map((conversation, index) =>
                         <tr key={index}>
+                            <td>{conversation.title}</td>
                             <td>{conversation.users.map((userConv, indexUser) => <span key={indexUser}>{userConv.name}</span>)}</td>
                             <td>{conversation.messages.length}</td>
+                            <td><Link to={location => `${location.pathname}/${conversation._id}`}><button>enter</button></Link></td>
                         </tr>
                     )}
                 </tbody>

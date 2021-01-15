@@ -1,6 +1,9 @@
 import {getApiUrl} from "../functions";
 import {createAction} from "redux-api-middleware";
-import {CONVERSATIONS_FAILURE, CONVERSATIONS_REQUEST, CONVERSATIONS_SUCCESS} from "../types/typesConversations";
+import {
+    CONVERSATIONS_FAILURE, CONVERSATIONS_REQUEST, CONVERSATIONS_SUCCESS,
+    SEND_MESSAGE_FAILURE, SEND_MESSAGE_REQUEST, SEND_MESSAGE_SUCCESS
+} from "../types/typesConversations";
 
 export const getConversationsOperation = (idUser, idWorld) => dispatch =>
     dispatch(createAction({
@@ -14,4 +17,24 @@ export const getConversationsOperation = (idUser, idWorld) => dispatch =>
             CONVERSATIONS_REQUEST,
             CONVERSATIONS_SUCCESS,
             CONVERSATIONS_FAILURE]
+    }));
+
+export const sendMessageOperation = (idUser, idConversation, content, time) => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl(`/messages`),
+        method: 'POST',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            idUser,
+            idConversation,
+            content,
+            time
+        }),
+        types: [
+            SEND_MESSAGE_REQUEST,
+            SEND_MESSAGE_SUCCESS,
+            SEND_MESSAGE_FAILURE]
     }));

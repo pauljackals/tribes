@@ -17,7 +17,11 @@ const conversationSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Message'
         }
-    ]
+    ],
+    title: {
+        type: String,
+        required: true
+    }
 });
 
 module.exports = model('Conversation', conversationSchema);

@@ -5,7 +5,7 @@ import {logInOperation, registerOperation, joinWorldOperation} from "../operatio
 import {fetchWorldsOperation} from "../operations/operationsWorlds";
 import {playWorldOperation} from "../operations/operationsWorld";
 import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
-import {getConversationsOperation} from "../operations/operationsConversations";
+import {getConversationsOperation, sendMessageOperation} from "../operations/operationsConversations";
 import Home from "./Home";
 import Login from "./login/Login";
 import Navbar from "./Navbar";
@@ -13,8 +13,9 @@ import Register from "./register/Register";
 import World from "./world/World";
 import VillageDetails from "./world/village/VillageDetails";
 import Conversations from './world/conversations/Conversations'
+import Conversation from "./world/conversations/Conversation";
 
-const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations}) => {
+const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -60,6 +61,14 @@ const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds
                       village={village}
                       getVillageDetails={getVillageDetails}
                       patchVillageName={patchVillageName}
+                  />}
+              />
+              <Route exact path="/world/:idWorld/conversations/:id" render={props =>
+                  <Conversation
+                      user={user}
+                      id={props.match.params.id}
+                      conversations={conversations}
+                      sendMessage={sendMessage}
                   />}
               />
               <Route exact path="/world/:idWorld/conversations" render={props =>
@@ -120,6 +129,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         getConversations: (idUser, idWorld) => {
             dispatch(getConversationsOperation(idUser, idWorld))
+        },
+        sendMessage: (idUser, idConversation, content, time) => {
+            dispatch(sendMessageOperation(idUser, idConversation, content, time))
         }
     }
 }
