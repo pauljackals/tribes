@@ -5,3 +5,7 @@ export const CONVERSATIONS_FAILURE = '@@conversations/CONVERSATIONS_FAILURE'
 export const SEND_MESSAGE_REQUEST = '@@conversations/SEND_MESSAGE_REQUEST'
 export const SEND_MESSAGE_SUCCESS = '@@conversations/SEND_MESSAGE_SUCCESS'
 export const SEND_MESSAGE_FAILURE = '@@conversations/SEND_MESSAGE_FAILURE'
+
+export const DELETE_MESSAGE_REQUEST = '@@conversations/DELETE_MESSAGE_REQUEST'
+export const DELETE_MESSAGE_SUCCESS = '@@conversations/DELETE_MESSAGE_SUCCESS'
+export const DELETE_MESSAGE_FAILURE = '@@conversations/DELETE_MESSAGE_FAILURE'

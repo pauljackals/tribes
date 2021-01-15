@@ -2,7 +2,8 @@ import {getApiUrl} from "../functions";
 import {createAction} from "redux-api-middleware";
 import {
     CONVERSATIONS_FAILURE, CONVERSATIONS_REQUEST, CONVERSATIONS_SUCCESS,
-    SEND_MESSAGE_FAILURE, SEND_MESSAGE_REQUEST, SEND_MESSAGE_SUCCESS
+    SEND_MESSAGE_FAILURE, SEND_MESSAGE_REQUEST, SEND_MESSAGE_SUCCESS,
+    DELETE_MESSAGE_FAILURE, DELETE_MESSAGE_REQUEST, DELETE_MESSAGE_SUCCESS
 } from "../types/typesConversations";
 
 export const getConversationsOperation = (idUser, idWorld) => dispatch =>
@@ -37,4 +38,18 @@ export const sendMessageOperation = (idUser, idConversation, content, time) => d
             SEND_MESSAGE_REQUEST,
             SEND_MESSAGE_SUCCESS,
             SEND_MESSAGE_FAILURE]
+    }));
+
+export const deleteMessageOperation = id => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl(`/messages/${id}`),
+        method: 'DELETE',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        types: [
+            DELETE_MESSAGE_REQUEST,
+            DELETE_MESSAGE_SUCCESS,
+            DELETE_MESSAGE_FAILURE]
     }));

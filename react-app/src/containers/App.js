@@ -5,7 +5,7 @@ import {logInOperation, registerOperation, joinWorldOperation} from "../operatio
 import {fetchWorldsOperation} from "../operations/operationsWorlds";
 import {playWorldOperation} from "../operations/operationsWorld";
 import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
-import {getConversationsOperation, sendMessageOperation} from "../operations/operationsConversations";
+import {getConversationsOperation, sendMessageOperation, deleteMessageOperation} from "../operations/operationsConversations";
 import Home from "./Home";
 import Login from "./login/Login";
 import Navbar from "./Navbar";
@@ -15,7 +15,7 @@ import VillageDetails from "./world/village/VillageDetails";
 import Conversations from './world/conversations/Conversations'
 import Conversation from "./world/conversations/Conversation";
 
-const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage}) => {
+const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -69,6 +69,7 @@ const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds
                       id={props.match.params.id}
                       conversations={conversations}
                       sendMessage={sendMessage}
+                      deleteMessage={deleteMessage}
                   />}
               />
               <Route exact path="/world/:idWorld/conversations" render={props =>
@@ -132,6 +133,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         sendMessage: (idUser, idConversation, content, time) => {
             dispatch(sendMessageOperation(idUser, idConversation, content, time))
+        },
+        deleteMessage: id => {
+            dispatch(deleteMessageOperation(id))
         }
     }
 }

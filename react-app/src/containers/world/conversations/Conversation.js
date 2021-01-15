@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
+import Message from "./Message";
 
-const Conversation = ({id, conversations, user, sendMessage}) => {
+const Conversation = ({id, conversations, user, sendMessage, deleteMessage}) => {
     const conversation = conversations.find(conversation => conversation._id===id)
 
     const handleSend = event => {
@@ -19,8 +20,7 @@ const Conversation = ({id, conversations, user, sendMessage}) => {
             }}><button>return</button></Link>
             <ul>
                 {conversation.messages.map((message, index) => <li key={index}>
-                    <span>{message.user.name} ({(new Date(message.time)).toLocaleString()})</span>
-                    <div>{message.content}</div>
+                    <Message message={message} deleteMessage={deleteMessage} user={user}/>
                 </li>)}
             </ul>
             <form onSubmit={handleSend}>

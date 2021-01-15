@@ -23,4 +23,13 @@ router.post('/', async (req, res) => {
     return res.send({message});
 });
 
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id
+    const message = await Message.findByIdAndDelete(id)
+    await Conversation.findByIdAndUpdate(message.conversation, {$pull: {
+            messages: message._id,
+        }})
+    return res.send({message});
+});
+
 module.exports = router;
