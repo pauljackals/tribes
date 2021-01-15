@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import Message from "./Message";
 
-const Conversation = ({id, conversations, user, sendMessage, deleteMessage}) => {
+const Conversation = ({id, conversations, user, sendMessage, deleteMessage, updateMessage}) => {
     const conversation = conversations.find(conversation => conversation._id===id)
 
     const handleSend = event => {
@@ -20,7 +20,7 @@ const Conversation = ({id, conversations, user, sendMessage, deleteMessage}) => 
             }}><button>return</button></Link>
             <ul>
                 {conversation.messages.map((message, index) => <li key={index}>
-                    <Message message={message} deleteMessage={deleteMessage} user={user}/>
+                    <Message message={message} deleteMessage={deleteMessage} user={user} updateMessage={updateMessage}/>
                 </li>)}
             </ul>
             <form onSubmit={handleSend}>

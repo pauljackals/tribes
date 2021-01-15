@@ -9,3 +9,7 @@ export const SEND_MESSAGE_FAILURE = '@@conversations/SEND_MESSAGE_FAILURE'
 export const DELETE_MESSAGE_REQUEST = '@@conversations/DELETE_MESSAGE_REQUEST'
 export const DELETE_MESSAGE_SUCCESS = '@@conversations/DELETE_MESSAGE_SUCCESS'
 export const DELETE_MESSAGE_FAILURE = '@@conversations/DELETE_MESSAGE_FAILURE'
+
+export const UPDATE_MESSAGE_REQUEST = '@@conversations/UPDATE_MESSAGE_REQUEST'
+export const UPDATE_MESSAGE_SUCCESS = '@@conversations/UPDATE_MESSAGE_SUCCESS'
+export const UPDATE_MESSAGE_FAILURE = '@@conversations/UPDATE_MESSAGE_FAILURE'

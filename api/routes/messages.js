@@ -32,4 +32,11 @@ router.delete('/:id', async (req, res) => {
     return res.send({message});
 });
 
+router.patch('/:id', async (req, res) => {
+    const id = req.params.id
+    const content = req.body.content
+    const message = await Message.findByIdAndUpdate(id, {content}, {new: true})
+    return res.send({message});
+});
+
 module.exports = router;

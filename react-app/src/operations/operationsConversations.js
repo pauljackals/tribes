@@ -3,7 +3,8 @@ import {createAction} from "redux-api-middleware";
 import {
     CONVERSATIONS_FAILURE, CONVERSATIONS_REQUEST, CONVERSATIONS_SUCCESS,
     SEND_MESSAGE_FAILURE, SEND_MESSAGE_REQUEST, SEND_MESSAGE_SUCCESS,
-    DELETE_MESSAGE_FAILURE, DELETE_MESSAGE_REQUEST, DELETE_MESSAGE_SUCCESS
+    DELETE_MESSAGE_FAILURE, DELETE_MESSAGE_REQUEST, DELETE_MESSAGE_SUCCESS,
+    UPDATE_MESSAGE_FAILURE, UPDATE_MESSAGE_REQUEST, UPDATE_MESSAGE_SUCCESS
 } from "../types/typesConversations";
 
 export const getConversationsOperation = (idUser, idWorld) => dispatch =>
@@ -17,7 +18,8 @@ export const getConversationsOperation = (idUser, idWorld) => dispatch =>
         types: [
             CONVERSATIONS_REQUEST,
             CONVERSATIONS_SUCCESS,
-            CONVERSATIONS_FAILURE]
+            CONVERSATIONS_FAILURE
+        ]
     }));
 
 export const sendMessageOperation = (idUser, idConversation, content, time) => dispatch =>
@@ -37,7 +39,8 @@ export const sendMessageOperation = (idUser, idConversation, content, time) => d
         types: [
             SEND_MESSAGE_REQUEST,
             SEND_MESSAGE_SUCCESS,
-            SEND_MESSAGE_FAILURE]
+            SEND_MESSAGE_FAILURE
+        ]
     }));
 
 export const deleteMessageOperation = id => dispatch =>
@@ -51,5 +54,22 @@ export const deleteMessageOperation = id => dispatch =>
         types: [
             DELETE_MESSAGE_REQUEST,
             DELETE_MESSAGE_SUCCESS,
-            DELETE_MESSAGE_FAILURE]
+            DELETE_MESSAGE_FAILURE
+        ]
+    }));
+
+export const updateMessageOperation = (id, content) => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl(`/messages/${id}`),
+        method: 'PATCH',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({content}),
+        types: [
+            UPDATE_MESSAGE_REQUEST,
+            UPDATE_MESSAGE_SUCCESS,
+            UPDATE_MESSAGE_FAILURE
+        ]
     }));
