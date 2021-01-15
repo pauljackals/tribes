@@ -9,7 +9,7 @@ const Conversations = ({user, idWorld, conversations, getConversations, world}) 
 
     return (
         <div className="Conversations">
-            <h1>World {world ? world.id : ''}</h1>
+            <h1>World {world.id}</h1>
             <h3>Conversations</h3>
             <Link to={location => location.pathname.split('/conversations')[0]}><button>return</button></Link>
 
