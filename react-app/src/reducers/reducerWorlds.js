@@ -1,12 +1,11 @@
-import {SET_WORLD, WORLDS_GET_SUCCESS} from "../types/typesWorlds";
+import {WORLDS_GET_SUCCESS, WORLDS_CREATE_SUCCESS} from "../types/typesWorlds";
 
 const reducerWorlds = (state=[], action) => {
     switch (action.type) {
         case WORLDS_GET_SUCCESS: {
             return action.payload.worlds
-        } case SET_WORLD: {
-            const worldPayload = action.payload.world
-            return state.map(world => world._id===worldPayload._id ? worldPayload : world)
+        } case WORLDS_CREATE_SUCCESS: {
+            return [...state, action.payload.world]
         } default: {
             return state
         }

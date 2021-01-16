@@ -19,9 +19,8 @@ router.post('/', async (req, res) => {
         size: body.size,
         id: body.id
     });
-    worldNew.save( (error, world) => {
-        return res.send({world});
-    })
+    const world = await worldNew.save()
+    return res.send({world: {__v: world.__v, _id: world._id, id: world.id}});
 });
 
 module.exports = router;

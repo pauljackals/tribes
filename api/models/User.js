@@ -22,7 +22,12 @@ const userSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'World'
         }
-    ]
+    ],
+    admin: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
 });
 
 module.exports = model('User', userSchema);

@@ -10,7 +10,8 @@ const INITIAL_STATE = {
         name: '',
         email: '',
         loggedIn: false,
-        worlds: []
+        worlds: [],
+        admin: false
     },
     errors: {
         email: false,

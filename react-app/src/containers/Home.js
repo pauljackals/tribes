@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Link, Redirect} from "react-router-dom";
 
-const Home = ({user, worlds, fetchWorlds, joinWorld}) => {
+const Home = ({user, worlds, fetchWorlds, joinWorld, createWorlds}) => {
     const [joining, setJoining] = useState('')
 
     useEffect(() => {
@@ -31,6 +31,22 @@ const Home = ({user, worlds, fetchWorlds, joinWorld}) => {
                     </li>
                 )}
             </ul>
+            {user.admin ?
+                <form onSubmit={event => {
+                    event.preventDefault()
+                    const target = event.target
+                    const id = target.id.value
+                    const size = target.size.value
+                    if(!isNaN(id) && !isNaN(size)) {
+                        createWorlds(parseInt(id), parseInt(size))
+                        event.target.reset()
+                    }
+                }}>
+                    <input type="number" name="id" placeholder="id"/>
+                    <input type="number" name="size" placeholder="size"/>
+                    <input type="submit" value="create"/>
+                </form> : ''
+            }
         </div>
     )
 }
