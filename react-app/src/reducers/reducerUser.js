@@ -1,8 +1,9 @@
 import {LOG_OUT, USER_CLEAR_ERRORS,
     LOG_IN_SUCCESS, LOG_IN_FAILURE,
     REGISTER_SUCCESS, REGISTER_FAILURE,
-    JOIN_WORLD_SUCCESS
+    JOIN_WORLD_SUCCESS,
 } from "../types/typesUser";
+import {WORLDS_DELETE_SUCCESS} from "../types/typesWorlds";
 
 const INITIAL_STATE = {
     user: {
@@ -46,6 +47,9 @@ const reducerUser = (state=INITIAL_STATE, action) => {
                     worlds: [...state.user.worlds, action.payload.world]
                 }
             }
+        } case WORLDS_DELETE_SUCCESS: {
+            const world = action.payload.world
+            return {...state, user: {...state.user, worlds: state.user.worlds.filter(userWorld => userWorld!==world._id)}}
         } default: {
             return state
         }

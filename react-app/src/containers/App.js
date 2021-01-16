@@ -2,7 +2,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {logOutAction, userClearErrorsAction} from "../actions/actionsUser";
 import {logInOperation, registerOperation, joinWorldOperation} from "../operations/operationsUser";
-import {fetchWorldsOperation, createWorldsOperation} from "../operations/operationsWorlds";
+import {fetchWorldsOperation, createWorldsOperation, deleteWorldsOperation} from "../operations/operationsWorlds";
 import {playWorldOperation} from "../operations/operationsWorld";
 import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
 import {getConversationsOperation, sendMessageOperation, deleteMessageOperation, updateMessageOperation, inviteUserOperation, kickUserOperation, editTitleOperation, createConversationOperation, deleteConversationOperation} from "../operations/operationsConversations";
@@ -15,7 +15,7 @@ import VillageDetails from "./world/village/VillageDetails";
 import Conversations from './world/conversations/Conversations'
 import Conversation from "./world/conversations/Conversation";
 
-const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser, editTitle, createConversation, deleteConversation, createWorlds}) => {
+const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser, editTitle, createConversation, deleteConversation, createWorlds, deleteWorlds}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -28,6 +28,7 @@ const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds
                     fetchWorlds={fetchWorlds}
                     joinWorld={joinWorld}
                     createWorlds={createWorlds}
+                    deleteWorlds={deleteWorlds}
                 />}
             />
             <Route path="/login" render={() =>
@@ -165,6 +166,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         createWorlds: (id, size) => {
             dispatch(createWorldsOperation(id, size))
+        },
+        deleteWorlds: id => {
+            dispatch(deleteWorldsOperation(id))
         }
     }
 }

@@ -1,4 +1,4 @@
-import {WORLDS_GET_SUCCESS, WORLDS_CREATE_SUCCESS} from "../types/typesWorlds";
+import {WORLDS_GET_SUCCESS, WORLDS_CREATE_SUCCESS, WORLDS_DELETE_SUCCESS} from "../types/typesWorlds";
 
 const reducerWorlds = (state=[], action) => {
     switch (action.type) {
@@ -6,6 +6,8 @@ const reducerWorlds = (state=[], action) => {
             return action.payload.worlds
         } case WORLDS_CREATE_SUCCESS: {
             return [...state, action.payload.world]
+        } case WORLDS_DELETE_SUCCESS: {
+            return state.filter(world => world._id!==action.payload.world._id)
         } default: {
             return state
         }

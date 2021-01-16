@@ -1,7 +1,8 @@
 import {getApiUrl} from "../functions";
 import {
     WORLDS_GET_FAILURE, WORLDS_GET_REQUEST, WORLDS_GET_SUCCESS,
-    WORLDS_CREATE_FAILURE, WORLDS_CREATE_REQUEST, WORLDS_CREATE_SUCCESS
+    WORLDS_CREATE_FAILURE, WORLDS_CREATE_REQUEST, WORLDS_CREATE_SUCCESS,
+    WORLDS_DELETE_FAILURE, WORLDS_DELETE_REQUEST, WORLDS_DELETE_SUCCESS
 } from "../types/typesWorlds";
 import {createAction} from "redux-api-middleware";
 
@@ -32,4 +33,18 @@ export const createWorldsOperation = (id, size) => dispatch =>
             WORLDS_CREATE_REQUEST,
             WORLDS_CREATE_SUCCESS,
             WORLDS_CREATE_FAILURE]
+    }));
+
+export const deleteWorldsOperation = id => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl(`/worlds/${id}`),
+        method: 'DELETE',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        types: [
+            WORLDS_DELETE_REQUEST,
+            WORLDS_DELETE_SUCCESS,
+            WORLDS_DELETE_FAILURE]
     }));
