@@ -43,4 +43,11 @@ router.patch('/:idConversation/kick', async (req, res) => {
     return res.send({conversation});
 });
 
+router.patch('/:idConversation/title', async (req, res) => {
+    const idConversation = req.params.idConversation
+    const title = req.body.title
+    const conversation = await Conversation.findByIdAndUpdate(idConversation, {title}, {new: true})
+    return res.send({conversation});
+});
+
 module.exports = router;

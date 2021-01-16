@@ -1,7 +1,8 @@
 import {
     CONVERSATIONS_SUCCESS,
     SEND_MESSAGE_SUCCESS, DELETE_MESSAGE_SUCCESS, UPDATE_MESSAGE_SUCCESS,
-    USER_KICK_SUCCESS, USER_INVITE_SUCCESS
+    USER_KICK_SUCCESS, USER_INVITE_SUCCESS,
+    EDIT_TITLE_SUCCESS
 } from "../types/typesConversations";
 
 const reducerConversations = (state=[], action) => {
@@ -38,6 +39,12 @@ const reducerConversations = (state=[], action) => {
             const conversation = action.payload.conversation
             return state.map(conv => conv._id===conversation._id ?
                 {...conv, users: conversation.users} :
+                conv
+            )
+        } case EDIT_TITLE_SUCCESS: {
+            const conversation = action.payload.conversation
+            return state.map(conv => conv._id===conversation._id ?
+                {...conv, title: conversation.title} :
                 conv
             )
         } default: {

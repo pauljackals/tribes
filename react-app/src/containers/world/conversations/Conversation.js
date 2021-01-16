@@ -1,7 +1,8 @@
 import {Link} from "react-router-dom";
 import Message from "./Message";
+import {useState} from 'react'
 
-const Conversation = ({id, conversations, user, sendMessage, deleteMessage, updateMessage, world, inviteUser, kickUser}) => {
+const Conversation = ({id, conversations, user, sendMessage, deleteMessage, updateMessage, world, inviteUser, kickUser, editTitle}) => {
     const conversation = conversations.find(conversation => conversation._id===id)
 
     const handleSend = event => {
@@ -10,7 +11,17 @@ const Conversation = ({id, conversations, user, sendMessage, deleteMessage, upda
         sendMessage(user._id, conversation._id, message, Date.now())
         event.target.reset()
     }
-    const usersOthers = world.users.filter(usr => !conversation.users.find(usrConv => usrConv._id===usr._id))
+    const sortCompare = (usr1, usr2) => {
+        if(usr1.name > usr2.name) {
+            return 1
+        } else if (usr1.name < usr2.name) {
+            return -1
+        } else {
+            return 0
+        }
+    }
+    const usersOthers = [...world.users].filter(usr => !conversation.users.find(usrConv => usrConv._id===usr._id))
+        .sort(sortCompare)
 
     const handleInvite = event => {
         event.preventDefault()
@@ -23,11 +34,44 @@ const Conversation = ({id, conversations, user, sendMessage, deleteMessage, upda
         return `${location.pathname.split(split)[0]}${split}`
     }
 
+    const [edit, setEdit] = useState(false)
+    const [error, setError] = useState(false)
+    const [titleNew, setTitleNew] = useState('')
+
+    const editStart = () => {
+        setTitleNew(conversation.title)
+        setEdit(true)
+    }
+    const editChange = event => {
+        setError(false)
+        setTitleNew(event.target.value)
+    }
+    const editCancel = () => {
+        setEdit(false)
+        setError(false)
+    }
+    const editSave = () => {
+        if(titleNew.length) {
+            setEdit(false)
+            editTitle(conversation._id, titleNew)
+        } else {
+            setError(true)
+        }
+    }
+
     return (
         <div className="Conversation">
             <h1>World {conversation.world.id}</h1>
             <Link to={handleReturn}><button>return</button></Link>
-            <h3>{conversation.title}</h3>
+            {error ? <div className="error">Title must not be empty</div> : ''}
+            <h3>{edit ?
+                <>
+                    <input placeholder="title" defaultValue={conversation.title} onChange={editChange} onBlur={() => setError(false)}/>
+                    <button onClick={editSave}>save</button>
+                    <button onClick={editCancel}>cancel</button>
+                </> :
+                <>{conversation.title}<button onClick={editStart}>edit</button></>
+            }</h3>
             <Link to={handleReturn}><button onClick={() => kickUser(conversation._id, user._id)}>leave conversation</button></Link>
             {usersOthers.length ?
                 <form onSubmit={handleInvite}>
@@ -39,7 +83,7 @@ const Conversation = ({id, conversations, user, sendMessage, deleteMessage, upda
             }
             <table>
                 <tbody>
-                {conversation.users.map((usr, index) =>
+                {[...conversation.users].sort(sortCompare).map((usr, index) =>
                     <tr key={index}>
                         <td>{usr.name}</td>
                         {usr._id!==user._id ? <td><button onClick={() => kickUser(conversation._id, usr._id)}>kick</button></td> : <></>}

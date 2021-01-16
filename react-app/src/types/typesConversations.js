@@ -21,3 +21,7 @@ export const USER_INVITE_FAILURE = '@@conversations/USER_INVITE_FAILURE'
 export const USER_KICK_REQUEST = '@@conversations/USER_KICK_REQUEST'
 export const USER_KICK_SUCCESS = '@@conversations/USER_KICK_SUCCESS'
 export const USER_KICK_FAILURE = '@@conversations/USER_KICK_FAILURE'
+
+export const EDIT_TITLE_REQUEST = '@@conversations/EDIT_TITLE_REQUEST'
+export const EDIT_TITLE_SUCCESS = '@@conversations/EDIT_TITLE_SUCCESS'
+export const EDIT_TITLE_FAILURE = '@@conversations/EDIT_TITLE_FAILURE'
