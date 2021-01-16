@@ -5,7 +5,7 @@ import {logInOperation, registerOperation, joinWorldOperation} from "../operatio
 import {fetchWorldsOperation} from "../operations/operationsWorlds";
 import {playWorldOperation} from "../operations/operationsWorld";
 import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
-import {getConversationsOperation, sendMessageOperation, deleteMessageOperation, updateMessageOperation} from "../operations/operationsConversations";
+import {getConversationsOperation, sendMessageOperation, deleteMessageOperation, updateMessageOperation, inviteUserOperation, kickUserOperation} from "../operations/operationsConversations";
 import Home from "./Home";
 import Login from "./login/Login";
 import Navbar from "./Navbar";
@@ -15,7 +15,7 @@ import VillageDetails from "./world/village/VillageDetails";
 import Conversations from './world/conversations/Conversations'
 import Conversation from "./world/conversations/Conversation";
 
-const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage}) => {
+const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -71,6 +71,9 @@ const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds
                       sendMessage={sendMessage}
                       deleteMessage={deleteMessage}
                       updateMessage={updateMessage}
+                      world={world}
+                      inviteUser={inviteUser}
+                      kickUser={kickUser}
                   />}
               />
               <Route exact path="/world/:idWorld/conversations" render={props =>
@@ -140,6 +143,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateMessage: (id, content) => {
             dispatch(updateMessageOperation(id, content))
+        },
+        inviteUser: (idConversation, idUser) => {
+            dispatch(inviteUserOperation(idConversation, idUser))
+        },
+        kickUser: (idConversation, idUser) => {
+            dispatch(kickUserOperation(idConversation, idUser))
         }
     }
 }

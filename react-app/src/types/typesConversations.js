@@ -13,3 +13,11 @@ export const DELETE_MESSAGE_FAILURE = '@@conversations/DELETE_MESSAGE_FAILURE'
 export const UPDATE_MESSAGE_REQUEST = '@@conversations/UPDATE_MESSAGE_REQUEST'
 export const UPDATE_MESSAGE_SUCCESS = '@@conversations/UPDATE_MESSAGE_SUCCESS'
 export const UPDATE_MESSAGE_FAILURE = '@@conversations/UPDATE_MESSAGE_FAILURE'
+
+export const USER_INVITE_REQUEST = '@@conversations/USER_INVITE_REQUEST'
+export const USER_INVITE_SUCCESS = '@@conversations/USER_INVITE_SUCCESS'
+export const USER_INVITE_FAILURE = '@@conversations/USER_INVITE_FAILURE'
+
+export const USER_KICK_REQUEST = '@@conversations/USER_KICK_REQUEST'
+export const USER_KICK_SUCCESS = '@@conversations/USER_KICK_SUCCESS'
+export const USER_KICK_FAILURE = '@@conversations/USER_KICK_FAILURE'

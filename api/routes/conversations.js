@@ -25,4 +25,22 @@ router.post('/', async (req, res) => {
     })
 });
 
+router.patch('/:idConversation/invite', async (req, res) => {
+    const idConversation = req.params.idConversation
+    const idUser = req.body.idUser
+    const conversation = await Conversation.findByIdAndUpdate(idConversation, {$push: {
+        users: idUser
+    }}, {new: true}).populate('users', 'name')
+    return res.send({conversation});
+});
+
+router.patch('/:idConversation/kick', async (req, res) => {
+    const idConversation = req.params.idConversation
+    const idUser = req.body.idUser
+    const conversation = await Conversation.findByIdAndUpdate(idConversation, {$pull: {
+            users: idUser
+        }}, {new: true}).populate('users', 'name')
+    return res.send({conversation});
+});
+
 module.exports = router;
