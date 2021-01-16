@@ -1,8 +1,9 @@
 import {Link} from "react-router-dom";
 import {useEffect} from 'react'
 import '../../../styles/Conversations.css'
+import FormConversation from "./FormConversation";
 
-const Conversations = ({user, idWorld, conversations, getConversations, world}) => {
+const Conversations = ({user, idWorld, conversations, getConversations, world, createConversation}) => {
     useEffect(() => {
         getConversations(user._id, idWorld)
     }, [idWorld, user, getConversations]);
@@ -10,9 +11,10 @@ const Conversations = ({user, idWorld, conversations, getConversations, world}) 
     return (
         <div className="Conversations">
             <h1>World {world.id}</h1>
-            <h3>Conversations</h3>
             <Link to={location => location.pathname.split('/conversations')[0]}><button>return</button></Link>
+            <h3>Conversations</h3>
 
+            <FormConversation world={world} user={user} createConversation={createConversation}/>
             <table className="conversations">
                 <tbody>
                     <tr>

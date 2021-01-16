@@ -25,3 +25,7 @@ export const USER_KICK_FAILURE = '@@conversations/USER_KICK_FAILURE'
 export const EDIT_TITLE_REQUEST = '@@conversations/EDIT_TITLE_REQUEST'
 export const EDIT_TITLE_SUCCESS = '@@conversations/EDIT_TITLE_SUCCESS'
 export const EDIT_TITLE_FAILURE = '@@conversations/EDIT_TITLE_FAILURE'
+
+export const CREATE_CONVERSATION_REQUEST = '@@conversations/CREATE_CONVERSATION_REQUEST'
+export const CREATE_CONVERSATION_SUCCESS = '@@conversations/CREATE_CONVERSATION_SUCCESS'
+export const CREATE_CONVERSATION_FAILURE = '@@conversations/CREATE_CONVERSATION_FAILURE'

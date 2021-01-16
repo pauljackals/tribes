@@ -2,7 +2,8 @@ import {
     CONVERSATIONS_SUCCESS,
     SEND_MESSAGE_SUCCESS, DELETE_MESSAGE_SUCCESS, UPDATE_MESSAGE_SUCCESS,
     USER_KICK_SUCCESS, USER_INVITE_SUCCESS,
-    EDIT_TITLE_SUCCESS
+    EDIT_TITLE_SUCCESS,
+    CREATE_CONVERSATION_SUCCESS
 } from "../types/typesConversations";
 
 const reducerConversations = (state=[], action) => {
@@ -47,6 +48,9 @@ const reducerConversations = (state=[], action) => {
                 {...conv, title: conversation.title} :
                 conv
             )
+        } case CREATE_CONVERSATION_SUCCESS: {
+            const conversation = action.payload.conversation
+            return [...state, conversation]
         } default: {
             return state
         }

@@ -72,7 +72,10 @@ const Conversation = ({id, conversations, user, sendMessage, deleteMessage, upda
                 </> :
                 <>{conversation.title}<button onClick={editStart}>edit</button></>
             }</h3>
-            <Link to={handleReturn}><button onClick={() => kickUser(conversation._id, user._id)}>leave conversation</button></Link>
+            {conversation.users.length > 1 ?
+                <Link to={handleReturn}><button onClick={() => kickUser(conversation._id, user._id)}>leave conversation</button></Link> :
+                <button>delete conversation</button>
+            }
             {usersOthers.length ?
                 <form onSubmit={handleInvite}>
                     <select name="user">

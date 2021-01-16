@@ -7,7 +7,8 @@ import {
     UPDATE_MESSAGE_FAILURE, UPDATE_MESSAGE_REQUEST, UPDATE_MESSAGE_SUCCESS,
     USER_INVITE_FAILURE, USER_INVITE_REQUEST, USER_INVITE_SUCCESS,
     USER_KICK_FAILURE, USER_KICK_REQUEST, USER_KICK_SUCCESS,
-    EDIT_TITLE_FAILURE, EDIT_TITLE_REQUEST, EDIT_TITLE_SUCCESS
+    EDIT_TITLE_FAILURE, EDIT_TITLE_REQUEST, EDIT_TITLE_SUCCESS,
+    CREATE_CONVERSATION_FAILURE, CREATE_CONVERSATION_REQUEST, CREATE_CONVERSATION_SUCCESS
 } from "../types/typesConversations";
 
 export const getConversationsOperation = (idUser, idWorld) => dispatch =>
@@ -124,3 +125,19 @@ export const editTitleOperation = (id, title) => dispatch =>
             EDIT_TITLE_FAILURE
         ]
     }));
+
+export const createConversationOperation = (idWorld, idsUsers, title) => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl(`/conversations`),
+        method: 'POST',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({idWorld, idsUsers, title}),
+        types: [
+            CREATE_CONVERSATION_REQUEST,
+            CREATE_CONVERSATION_SUCCESS,
+            CREATE_CONVERSATION_FAILURE
+        ]
+    }))

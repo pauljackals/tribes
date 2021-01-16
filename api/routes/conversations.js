@@ -20,9 +20,8 @@ router.post('/', async (req, res) => {
         world,
         title
     });
-    conversationNew.save( (error, conversation) => {
-        return res.send({conversation});
-    })
+    const conversation = await conversationNew.save().then(c => c.populate('users', 'name').populate('world', 'id').execPopulate())
+    return res.send({conversation})
 });
 
 router.patch('/:idConversation/invite', async (req, res) => {
