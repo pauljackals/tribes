@@ -5,7 +5,7 @@ import {logInOperation, registerOperation, joinWorldOperation} from "../operatio
 import {fetchWorldsOperation} from "../operations/operationsWorlds";
 import {playWorldOperation} from "../operations/operationsWorld";
 import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
-import {getConversationsOperation, sendMessageOperation, deleteMessageOperation, updateMessageOperation, inviteUserOperation, kickUserOperation, editTitleOperation, createConversationOperation} from "../operations/operationsConversations";
+import {getConversationsOperation, sendMessageOperation, deleteMessageOperation, updateMessageOperation, inviteUserOperation, kickUserOperation, editTitleOperation, createConversationOperation, deleteConversationOperation} from "../operations/operationsConversations";
 import Home from "./Home";
 import Login from "./login/Login";
 import Navbar from "./Navbar";
@@ -15,7 +15,7 @@ import VillageDetails from "./world/village/VillageDetails";
 import Conversations from './world/conversations/Conversations'
 import Conversation from "./world/conversations/Conversation";
 
-const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser, editTitle, createConversation}) => {
+const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser, editTitle, createConversation, deleteConversation}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -75,6 +75,7 @@ const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds
                       inviteUser={inviteUser}
                       kickUser={kickUser}
                       editTitle={editTitle}
+                      deleteConversation={deleteConversation}
                   />}
               />
               <Route exact path="/world/:idWorld/conversations" render={props =>
@@ -157,6 +158,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         createConversation: (idWorld, idsUsers, title) => {
             dispatch(createConversationOperation(idWorld, idsUsers, title))
+        },
+        deleteConversation: id => {
+            dispatch(deleteConversationOperation(id))
         }
     }
 }

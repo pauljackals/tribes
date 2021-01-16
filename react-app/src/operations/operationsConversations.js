@@ -8,7 +8,8 @@ import {
     USER_INVITE_FAILURE, USER_INVITE_REQUEST, USER_INVITE_SUCCESS,
     USER_KICK_FAILURE, USER_KICK_REQUEST, USER_KICK_SUCCESS,
     EDIT_TITLE_FAILURE, EDIT_TITLE_REQUEST, EDIT_TITLE_SUCCESS,
-    CREATE_CONVERSATION_FAILURE, CREATE_CONVERSATION_REQUEST, CREATE_CONVERSATION_SUCCESS
+    CREATE_CONVERSATION_FAILURE, CREATE_CONVERSATION_REQUEST, CREATE_CONVERSATION_SUCCESS,
+    DELETE_CONVERSATION_SUCCESS, DELETE_CONVERSATION_FAILURE, DELETE_CONVERSATION_REQUEST
 } from "../types/typesConversations";
 
 export const getConversationsOperation = (idUser, idWorld) => dispatch =>
@@ -139,5 +140,21 @@ export const createConversationOperation = (idWorld, idsUsers, title) => dispatc
             CREATE_CONVERSATION_REQUEST,
             CREATE_CONVERSATION_SUCCESS,
             CREATE_CONVERSATION_FAILURE
+        ]
+    }))
+
+export const deleteConversationOperation = id => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl(`/conversations/${id}`),
+        method: 'DELETE',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({id}),
+        types: [
+            DELETE_CONVERSATION_REQUEST,
+            DELETE_CONVERSATION_SUCCESS,
+            DELETE_CONVERSATION_FAILURE
         ]
     }))

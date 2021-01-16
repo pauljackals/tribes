@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Conversation = require('../models/Conversation');
+const Message = require('../models/Message');
 
 router.get('/filters', async (req, res) => {
     const world = req.query.world;
@@ -48,5 +49,13 @@ router.patch('/:idConversation/title', async (req, res) => {
     const conversation = await Conversation.findByIdAndUpdate(idConversation, {title}, {new: true})
     return res.send({conversation});
 });
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id
+    const conversation = await Conversation.findByIdAndDelete(id)
+    await Message.deleteMany({conversation: conversation._id})
+
+    return res.send({conversation})
+})
 
 module.exports = router;

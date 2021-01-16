@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import Message from "./Message";
 import {useState} from 'react'
 
-const Conversation = ({id, conversations, user, sendMessage, deleteMessage, updateMessage, world, inviteUser, kickUser, editTitle}) => {
+const Conversation = ({id, conversations, user, sendMessage, deleteMessage, updateMessage, world, inviteUser, kickUser, editTitle, deleteConversation}) => {
     const conversation = conversations.find(conversation => conversation._id===id)
 
     const handleSend = event => {
@@ -74,7 +74,7 @@ const Conversation = ({id, conversations, user, sendMessage, deleteMessage, upda
             }</h3>
             {conversation.users.length > 1 ?
                 <Link to={handleReturn}><button onClick={() => kickUser(conversation._id, user._id)}>leave conversation</button></Link> :
-                <button>delete conversation</button>
+                <Link to={handleReturn}><button onClick={() => deleteConversation(conversation._id)}>delete conversation</button></Link>
             }
             {usersOthers.length ?
                 <form onSubmit={handleInvite}>
