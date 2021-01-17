@@ -1,5 +1,6 @@
 import {defaultVillageName} from "../../functions";
 import {useState, Fragment} from 'react'
+import {Link} from "react-router-dom";
 
 const Players = ({world}) => {
     const [filters, setFilters] = useState({user: '', village: '', villagesNumber: -1})
@@ -64,13 +65,13 @@ const Players = ({world}) => {
                                 <Fragment key={indexWorldUser}>
                                     <tr>
                                         <td rowSpan={userVillages.length}>{worldUser.name}</td>
-                                        <td>{villageFirst.name ? villageFirst.name : defaultVillageName(worldUser.name)}</td>
+                                        <td><Link to={location => `${location.pathname}/village/${villageFirst._id}/details`}>{villageFirst.name ? villageFirst.name : defaultVillageName(worldUser.name)}</Link></td>
                                         <td rowSpan={userVillages.length}>{userVillages.length}</td>
                                     </tr>
                                     {
                                         villagesRest.map((village, indexVillage) =>
                                             <tr key={indexVillage}>
-                                                <td>{village.name ? village.name : defaultVillageName(worldUser.name)}</td>
+                                                <td><Link to={location => `${location.pathname}/village/${village._id}/details`}>{village.name ? village.name : defaultVillageName(worldUser.name)}</Link></td>
                                             </tr>
                                         )
                                     }
