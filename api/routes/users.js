@@ -73,4 +73,11 @@ router.delete('/:id', async (req, res) => {
     return res.send({user})
 })
 
+router.patch('/:name/admin', async (req, res) => {
+    const name = req.params.name
+    const admin = req.body.admin
+    const user = await User.updateOne({name}, {admin})
+    return res.send({user})
+})
+
 module.exports = router;

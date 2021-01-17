@@ -1,7 +1,7 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {logOutAction, userClearErrorsAction} from "../actions/actionsUser";
-import {logInOperation, registerOperation, joinWorldOperation, leaveWorldOperation, editProfileOperation, deleteUserOperation} from "../operations/operationsUser";
+import {logInOperation, registerOperation, joinWorldOperation, leaveWorldOperation, editProfileOperation, deleteUserOperation, adminOperation} from "../operations/operationsUser";
 import {fetchWorldsOperation, createWorldsOperation, deleteWorldsOperation} from "../operations/operationsWorlds";
 import {playWorldOperation} from "../operations/operationsWorld";
 import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
@@ -16,7 +16,7 @@ import Conversations from './world/conversations/Conversations'
 import Conversation from "./world/conversations/Conversation";
 import Profile from "./profile/Profile";
 
-const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser, editTitle, createConversation, deleteConversation, createWorlds, deleteWorlds, leaveWorld, editProfile, deleteUser}) => {
+const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser, editTitle, createConversation, deleteConversation, createWorlds, deleteWorlds, leaveWorld, editProfile, deleteUser, admin}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -30,6 +30,7 @@ const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds
                     joinWorld={joinWorld}
                     createWorlds={createWorlds}
                     deleteWorlds={deleteWorlds}
+                    admin={admin}
                 />}
             />
             <Route path="/login" render={() =>
@@ -190,6 +191,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         deleteUser: id => {
             dispatch(deleteUserOperation(id))
+        },
+        admin: (name, admin) => {
+            dispatch(adminOperation(name, admin))
         }
     }
 }

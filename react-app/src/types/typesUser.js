@@ -24,3 +24,7 @@ export const EDIT_PROFILE_FAILURE = '@@user/EDIT_PROFILE_FAILURE'
 export const DELETE_USER_REQUEST = '@@user/DELETE_USER_REQUEST'
 export const DELETE_USER_SUCCESS = '@@user/DELETE_USER_SUCCESS'
 export const DELETE_USER_FAILURE = '@@user/DELETE_USER_FAILURE'
+
+export const ADMIN_REQUEST = '@@user/ADMIN_REQUEST'
+export const ADMIN_SUCCESS = '@@user/ADMIN_SUCCESS'
+export const ADMIN_FAILURE = '@@user/ADMIN_FAILURE'

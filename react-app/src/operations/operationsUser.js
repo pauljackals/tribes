@@ -18,7 +18,8 @@ import {
     EDIT_PROFILE_REQUEST,
     DELETE_USER_REQUEST,
     DELETE_USER_SUCCESS,
-    DELETE_USER_FAILURE
+    DELETE_USER_FAILURE,
+    ADMIN_SUCCESS, ADMIN_FAILURE, ADMIN_REQUEST
 } from "../types/typesUser";
 
 export const logInOperation = email => dispatch =>
@@ -157,5 +158,21 @@ export const deleteUserOperation = id => dispatch =>
             DELETE_USER_REQUEST,
             DELETE_USER_SUCCESS,
             DELETE_USER_FAILURE
+        ]
+    }))
+
+export const adminOperation = (name, admin) => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl(`/users/${name}/admin`),
+        method: 'PATCH',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({admin}),
+        types: [
+            ADMIN_REQUEST,
+            ADMIN_SUCCESS,
+            ADMIN_FAILURE
         ]
     }))

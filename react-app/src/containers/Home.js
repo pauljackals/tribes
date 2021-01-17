@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Link, Redirect} from "react-router-dom";
 
-const Home = ({user, worlds, fetchWorlds, joinWorld, createWorlds, deleteWorlds}) => {
+const Home = ({user, worlds, fetchWorlds, joinWorld, createWorlds, deleteWorlds, admin}) => {
     const [joining, setJoining] = useState('')
 
     useEffect(() => {
@@ -61,6 +61,23 @@ const Home = ({user, worlds, fetchWorlds, joinWorld, createWorlds, deleteWorlds}
                             <input type="submit" value="delete"/>
                         </form> : ''
                     }
+                    <form onSubmit={event => {
+                        event.preventDefault()
+                        const target = event.target
+                        const status = target.status.value
+                        const name = target.name.value
+                        if(name.length && name!==user.name) {
+                            admin(name, status === "op")
+                            target.reset()
+                        }
+                    }}>
+                        <input name="name" placeholder="user"/>
+                        <select name="status">
+                            <option value="op">op</option>
+                            <option value="deop">deop</option>
+                        </select>
+                        <input type="submit" value="modify"/>
+                    </form>
                 </> : ''
             }
         </div>
