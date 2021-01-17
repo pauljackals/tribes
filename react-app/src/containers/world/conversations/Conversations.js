@@ -1,12 +1,20 @@
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {useEffect} from 'react'
 import '../../../styles/Conversations.css'
 import FormConversation from "./FormConversation";
 
 const Conversations = ({user, idWorld, conversations, getConversations, world, createConversation}) => {
     useEffect(() => {
-        getConversations(user._id, idWorld)
+        if(user.loggedIn){
+            getConversations(user._id, idWorld)
+        }
     }, [idWorld, user, getConversations]);
+
+    if(!user.loggedIn){
+        return (
+            <Redirect to="/"/>
+        )
+    }
 
     return (
         <div className="Conversations">

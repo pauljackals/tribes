@@ -1,8 +1,19 @@
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import Message from "./Message";
 import {useState} from 'react'
 
 const Conversation = ({id, conversations, user, sendMessage, deleteMessage, updateMessage, world, inviteUser, kickUser, editTitle, deleteConversation}) => {
+
+    const [edit, setEdit] = useState(false)
+    const [error, setError] = useState(false)
+    const [titleNew, setTitleNew] = useState('')
+
+    if(!user.loggedIn) {
+        return (
+            <Redirect to="/"/>
+        )
+    }
+
     const conversation = conversations.find(conversation => conversation._id===id)
 
     const handleSend = event => {
@@ -33,10 +44,6 @@ const Conversation = ({id, conversations, user, sendMessage, deleteMessage, upda
         const split = '/conversations'
         return `${location.pathname.split(split)[0]}${split}`
     }
-
-    const [edit, setEdit] = useState(false)
-    const [error, setError] = useState(false)
-    const [titleNew, setTitleNew] = useState('')
 
     const editStart = () => {
         setTitleNew(conversation.title)
