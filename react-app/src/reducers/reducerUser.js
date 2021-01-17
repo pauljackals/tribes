@@ -1,7 +1,8 @@
 import {LOG_OUT, USER_CLEAR_ERRORS,
     LOG_IN_SUCCESS, LOG_IN_FAILURE,
     REGISTER_SUCCESS, REGISTER_FAILURE,
-    JOIN_WORLD_SUCCESS, LEAVE_WORLD_SUCCESS
+    JOIN_WORLD_SUCCESS, LEAVE_WORLD_SUCCESS,
+    EDIT_PROFILE_SUCCESS, EDIT_PROFILE_FAILURE
 } from "../types/typesUser";
 import {WORLDS_DELETE_SUCCESS} from "../types/typesWorlds";
 
@@ -22,6 +23,7 @@ const INITIAL_STATE = {
 
 const reducerUser = (state=INITIAL_STATE, action) => {
     switch (action.type) {
+        case EDIT_PROFILE_SUCCESS:
         case REGISTER_SUCCESS:
         case LOG_IN_SUCCESS: {
             return {
@@ -31,7 +33,8 @@ const reducerUser = (state=INITIAL_STATE, action) => {
                     loggedIn: true
                 }
             }
-        } case REGISTER_FAILURE:
+        } case EDIT_PROFILE_FAILURE:
+        case REGISTER_FAILURE:
         case LOG_IN_FAILURE: {
             return {...state, errors: {...INITIAL_STATE.errors, ...action.payload.errors}}
 

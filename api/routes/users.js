@@ -45,4 +45,17 @@ router.patch('/:idUser/leave', async (req, res) => {
     return res.send({user})
 })
 
+router.patch('/:id', async (req, res) => {
+    const body = req.body
+    const id = req.params.id
+    const name = body.name
+    const email = body.email
+    try {
+        const user = await User.findByIdAndUpdate(id, {name, email}, {new: true})
+        return res.send({user})
+    } catch (error) {
+        return res.status(409).send({error})
+    }
+})
+
 module.exports = router;

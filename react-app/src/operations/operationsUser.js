@@ -4,7 +4,8 @@ import {
     LOG_IN_REQUEST, LOG_IN_FAILURE, LOG_IN_SUCCESS,
     REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS,
     JOIN_WORLD_FAILURE, JOIN_WORLD_REQUEST, JOIN_WORLD_SUCCESS,
-    LEAVE_WORLD_FAILURE, LEAVE_WORLD_REQUEST, LEAVE_WORLD_SUCCESS
+    LEAVE_WORLD_FAILURE, LEAVE_WORLD_REQUEST, LEAVE_WORLD_SUCCESS,
+    EDIT_PROFILE_SUCCESS, EDIT_PROFILE_FAILURE, EDIT_PROFILE_REQUEST
 } from "../types/typesUser";
 
 export const logInOperation = email => dispatch =>
@@ -100,5 +101,33 @@ export const leaveWorldOperation = (idUser, idWorld) => dispatch =>
             LEAVE_WORLD_REQUEST,
             LEAVE_WORLD_SUCCESS,
             LEAVE_WORLD_FAILURE
+        ]
+    }))
+
+export const editProfileOperation = (id, name, email) => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl(`/users/${id}`),
+        method: 'PATCH',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({name, email}),
+        types: [
+            EDIT_PROFILE_REQUEST,
+            EDIT_PROFILE_SUCCESS,
+            {
+                type: EDIT_PROFILE_FAILURE,
+                payload: async (action, state, res) => {
+                    const body = await res.json()
+                    const errors = body.error.keyPattern
+                    return {
+                        errors: {
+                            email: !!errors.email,
+                            name: !!errors.name
+                        }
+                    }
+                }
+            }
         ]
     }))

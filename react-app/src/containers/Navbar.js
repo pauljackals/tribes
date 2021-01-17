@@ -7,7 +7,7 @@ const Navbar = ({user, logOut}) => {
             {
                 user.loggedIn ?
                     <>
-                        <span>{user.name}</span>
+                        <Link to={location => ({pathname: '/profile', state: {previous: location.pathname}})}><span>{user.name}</span></Link>
                         <Link to="/"><button onClick={() => logOut()}>logout</button></Link>
                     </>:
 
