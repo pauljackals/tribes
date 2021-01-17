@@ -1,11 +1,24 @@
 import {createAction} from "redux-api-middleware";
 import {getApiUrl} from "../functions";
 import {
-    LOG_IN_REQUEST, LOG_IN_FAILURE, LOG_IN_SUCCESS,
-    REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS,
-    JOIN_WORLD_FAILURE, JOIN_WORLD_REQUEST, JOIN_WORLD_SUCCESS,
-    LEAVE_WORLD_FAILURE, LEAVE_WORLD_REQUEST, LEAVE_WORLD_SUCCESS,
-    EDIT_PROFILE_SUCCESS, EDIT_PROFILE_FAILURE, EDIT_PROFILE_REQUEST
+    LOG_IN_REQUEST,
+    LOG_IN_FAILURE,
+    LOG_IN_SUCCESS,
+    REGISTER_FAILURE,
+    REGISTER_REQUEST,
+    REGISTER_SUCCESS,
+    JOIN_WORLD_FAILURE,
+    JOIN_WORLD_REQUEST,
+    JOIN_WORLD_SUCCESS,
+    LEAVE_WORLD_FAILURE,
+    LEAVE_WORLD_REQUEST,
+    LEAVE_WORLD_SUCCESS,
+    EDIT_PROFILE_SUCCESS,
+    EDIT_PROFILE_FAILURE,
+    EDIT_PROFILE_REQUEST,
+    DELETE_USER_REQUEST,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAILURE
 } from "../types/typesUser";
 
 export const logInOperation = email => dispatch =>
@@ -129,5 +142,20 @@ export const editProfileOperation = (id, name, email) => dispatch =>
                     }
                 }
             }
+        ]
+    }))
+
+export const deleteUserOperation = id => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl(`/users/${id}`),
+        method: 'DELETE',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        types: [
+            DELETE_USER_REQUEST,
+            DELETE_USER_SUCCESS,
+            DELETE_USER_FAILURE
         ]
     }))

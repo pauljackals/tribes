@@ -1,7 +1,7 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {logOutAction, userClearErrorsAction} from "../actions/actionsUser";
-import {logInOperation, registerOperation, joinWorldOperation, leaveWorldOperation, editProfileOperation} from "../operations/operationsUser";
+import {logInOperation, registerOperation, joinWorldOperation, leaveWorldOperation, editProfileOperation, deleteUserOperation} from "../operations/operationsUser";
 import {fetchWorldsOperation, createWorldsOperation, deleteWorldsOperation} from "../operations/operationsWorlds";
 import {playWorldOperation} from "../operations/operationsWorld";
 import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
@@ -16,7 +16,7 @@ import Conversations from './world/conversations/Conversations'
 import Conversation from "./world/conversations/Conversation";
 import Profile from "./profile/Profile";
 
-const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser, editTitle, createConversation, deleteConversation, createWorlds, deleteWorlds, leaveWorld, editProfile}) => {
+const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser, editTitle, createConversation, deleteConversation, createWorlds, deleteWorlds, leaveWorld, editProfile, deleteUser}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -43,10 +43,11 @@ const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds
               <Route path="/profile" render={props =>
                   <Profile
                       user={user}
-                      previous={props.location.state.previous}
+                      location={props.location}
                       userClearErrors={userClearErrors}
                       userErrors={userErrors}
                       editProfile={editProfile}
+                      deleteUser={deleteUser}
                   />}
               />
             <Route path="/register" render={() =>
@@ -186,6 +187,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         editProfile: (id, name, email) => {
             dispatch(editProfileOperation(id, name, email))
+        },
+        deleteUser: id => {
+            dispatch(deleteUserOperation(id))
         }
     }
 }
