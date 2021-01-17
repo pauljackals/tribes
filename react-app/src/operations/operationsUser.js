@@ -3,7 +3,8 @@ import {getApiUrl} from "../functions";
 import {
     LOG_IN_REQUEST, LOG_IN_FAILURE, LOG_IN_SUCCESS,
     REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS,
-    JOIN_WORLD_FAILURE, JOIN_WORLD_REQUEST, JOIN_WORLD_SUCCESS
+    JOIN_WORLD_FAILURE, JOIN_WORLD_REQUEST, JOIN_WORLD_SUCCESS,
+    LEAVE_WORLD_FAILURE, LEAVE_WORLD_REQUEST, LEAVE_WORLD_SUCCESS
 } from "../types/typesUser";
 
 export const logInOperation = email => dispatch =>
@@ -83,5 +84,21 @@ export const joinWorldOperation = (idUser, idWorld) => dispatch =>
                 }
             },
             JOIN_WORLD_FAILURE
+        ]
+    }))
+
+export const leaveWorldOperation = (idUser, idWorld) => dispatch =>
+    dispatch(createAction({
+        endpoint: getApiUrl(`/users/${idUser}/leave`),
+        method: 'PATCH',
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({idWorld}),
+        types: [
+            LEAVE_WORLD_REQUEST,
+            LEAVE_WORLD_SUCCESS,
+            LEAVE_WORLD_FAILURE
         ]
     }))

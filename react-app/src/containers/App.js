@@ -1,7 +1,7 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {logOutAction, userClearErrorsAction} from "../actions/actionsUser";
-import {logInOperation, registerOperation, joinWorldOperation} from "../operations/operationsUser";
+import {logInOperation, registerOperation, joinWorldOperation, leaveWorldOperation} from "../operations/operationsUser";
 import {fetchWorldsOperation, createWorldsOperation, deleteWorldsOperation} from "../operations/operationsWorlds";
 import {playWorldOperation} from "../operations/operationsWorld";
 import {getVillageDetailsOperation, patchVillageNameOperation} from "../operations/operationsVillage.js";
@@ -15,7 +15,7 @@ import VillageDetails from "./world/village/VillageDetails";
 import Conversations from './world/conversations/Conversations'
 import Conversation from "./world/conversations/Conversation";
 
-const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser, editTitle, createConversation, deleteConversation, createWorlds, deleteWorlds}) => {
+const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser, editTitle, createConversation, deleteConversation, createWorlds, deleteWorlds, leaveWorld}) => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -54,6 +54,7 @@ const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds
                     world={world}
                     board={board}
                     playWorld={playWorld}
+                    leaveWorld={leaveWorld}
                 />}
             />
               <Route exact path="/world/:idWorld/village/:id/details" render={props =>
@@ -169,6 +170,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         deleteWorlds: id => {
             dispatch(deleteWorldsOperation(id))
+        },
+        leaveWorld: (idUser, idWorld) => {
+            dispatch(leaveWorldOperation(idUser, idWorld))
         }
     }
 }

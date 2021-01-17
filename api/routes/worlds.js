@@ -33,16 +33,7 @@ router.delete('/:id', async (req, res) => {
 
     const conversations = await Conversation.find({world: world._id})
     await Conversation.deleteMany({world: world._id})
-
-    const deleteMessages = async index => {
-        if(index < conversations.length) {
-            await Message.deleteMany({conversation: conversations[index]._id});
-            await deleteMessages(index+1)
-        }
-        return true
-    }
-    await deleteMessages(0)
-
+    await Message.deleteMany({conversation: {$in: conversations.map(c => c._id)}});
     await Village.deleteMany({world: world._id})
     await User.updateMany({worlds: world._id}, {$pull: {worlds: world._id}})
     return res.send({world})
