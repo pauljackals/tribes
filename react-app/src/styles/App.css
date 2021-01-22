@@ -1,0 +1,22 @@
+button, input[type="submit"] {
+    background-color: darkred;
+    color: lightyellow;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 10px;
+}
+body {
+    padding: 0;
+    margin: 0;
+}
+.App {
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: antiquewhite;
+    min-height: 100vh;
+}
+#root {
+    background-color: tan;
+}

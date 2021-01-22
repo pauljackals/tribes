@@ -1,0 +1,22 @@
+.Navbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: sienna;
+    padding: 5px;
+}
+.navbar-name {
+    background-color: white;
+    text-decoration: none;
+    padding: 2px;
+    color: black;
+}
+.navbar-home{
+    color: black;
+    font-style: italic;
+    font-weight: bold;
+    padding: 2px;
+}
+.navbar-home, .navbar-name {
+    margin: 10px;
+}

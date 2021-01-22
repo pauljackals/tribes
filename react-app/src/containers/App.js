@@ -15,6 +15,7 @@ import VillageDetails from "./world/village/VillageDetails";
 import Conversations from './world/conversations/Conversations'
 import Conversation from "./world/conversations/Conversation";
 import Profile from "./profile/Profile";
+import '../styles/App.css'
 
 const App = ({user, userErrors, userClearErrors, logOut, logIn, register, worlds, world, fetchWorlds, joinWorld, board, playWorld, village, getVillageDetails, patchVillageName, conversations, getConversations, sendMessage, deleteMessage, updateMessage, inviteUser, kickUser, editTitle, createConversation, deleteConversation, createWorlds, deleteWorlds, leaveWorld, editProfile, deleteUser, admin}) => {
   return (

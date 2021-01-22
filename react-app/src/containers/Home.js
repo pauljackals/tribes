@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {Link, Redirect} from "react-router-dom";
+import '../styles/Home.css'
 
 const Home = ({user, worlds, fetchWorlds, joinWorld, createWorlds, deleteWorlds, admin}) => {
     const [joining, setJoining] = useState('')
@@ -17,7 +18,7 @@ const Home = ({user, worlds, fetchWorlds, joinWorld, createWorlds, deleteWorlds,
         <div className="Home">
             {user.worlds.find(world => world===joining) ? <Redirect push to={`/world/${joining}`}/> : ''}
 
-            <h1>Home</h1>
+            <h1>Tribes</h1>
             <ul>
                 {worlds.map((world, index) =>
                     <li key={index}>
