@@ -38,7 +38,7 @@ const Home = ({user, worlds, fetchWorlds, joinWorld, createWorlds, deleteWorlds,
                         event.preventDefault()
                         const target = event.target
                         const id = target.id.value
-                        if(!isNaN(id)) {
+                        if(id.length && !isNaN(id)) {
                             createWorlds(parseInt(id))
                             target.reset()
                         }

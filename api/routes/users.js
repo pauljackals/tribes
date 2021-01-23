@@ -77,7 +77,8 @@ router.patch('/:name/admin', async (req, res) => {
     const name = req.params.name
     const admin = req.body.admin
     const user = await User.updateOne({name}, {admin})
-    return res.send({user})
+    const status = !user.nModified ? 404 : 200
+    return res.status(status).send({user})
 })
 
 module.exports = router;
