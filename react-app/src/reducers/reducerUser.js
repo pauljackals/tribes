@@ -58,7 +58,7 @@ const reducerUser = (state=INITIAL_STATE, action) => {
                 ...state,
                 user: {
                     ...state.user,
-                    worlds: state.user.worlds.filter(world => worlds.find(w => w===world._id))
+                    worlds
                 }
             }
         } case WORLDS_DELETE_SUCCESS: {

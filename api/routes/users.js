@@ -37,7 +37,7 @@ router.patch('/:idUser/leave', async (req, res) => {
     const idUser = req.params.idUser
     const idWorld = req.body.idWorld
 
-    const user = await User.findByIdAndUpdate(idUser, {$pull: {worlds: idWorld}})
+    const user = await User.findByIdAndUpdate(idUser, {$pull: {worlds: idWorld}}, {new: true})
     const villages = await Village.find({user: user._id, world: idWorld})
     await Village.deleteMany({user: user._id, world: idWorld})
     await World.findByIdAndUpdate(idWorld, {$pull: {villages: {$in: villages.map(v => v._id)}, users: user._id}})
