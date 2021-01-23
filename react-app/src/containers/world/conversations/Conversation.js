@@ -2,8 +2,10 @@ import {Link, Redirect} from "react-router-dom";
 import Message from "./Message";
 import {useState} from 'react'
 import '../../../styles/Conversation.css'
+import {deleteConversationOperation, editTitleOperation, inviteUserOperation, kickUserOperation, sendMessageOperation} from "../../../operations/operationsConversations";
+import {connect} from "react-redux";
 
-const Conversation = ({id, conversations, user, sendMessage, deleteMessage, updateMessage, world, inviteUser, kickUser, editTitle, deleteConversation}) => {
+const Conversation = ({id, conversations, user, sendMessage, world, inviteUser, kickUser, editTitle, deleteConversation}) => {
 
     const [edit, setEdit] = useState(false)
     const [error, setError] = useState(false)
@@ -108,7 +110,7 @@ const Conversation = ({id, conversations, user, sendMessage, deleteMessage, upda
             </table>
             <ul>
                 {conversation.messages.map((message, index) => <li key={index} className={message.user._id===user._id ? "message-you" : ""}>
-                    <Message message={message} deleteMessage={deleteMessage} user={user} updateMessage={updateMessage}/>
+                    <Message message={message} user={user}/>
                 </li>)}
             </ul>
             <form onSubmit={handleSend}>
@@ -119,4 +121,24 @@ const Conversation = ({id, conversations, user, sendMessage, deleteMessage, upda
     )
 }
 
-export default Conversation
+const mapDispatchToProps = dispatch => {
+    return {
+        sendMessage: (idUser, idConversation, content, time) => {
+            dispatch(sendMessageOperation(idUser, idConversation, content, time))
+        },
+        inviteUser: (idConversation, idUser) => {
+            dispatch(inviteUserOperation(idConversation, idUser))
+        },
+        kickUser: (idConversation, idUser) => {
+            dispatch(kickUserOperation(idConversation, idUser))
+        },
+        editTitle: (id, title) => {
+            dispatch(editTitleOperation(id, title))
+        },
+        deleteConversation: id => {
+            dispatch(deleteConversationOperation(id))
+        }
+    }
+}
+
+export default connect(undefined, mapDispatchToProps)(Conversation);

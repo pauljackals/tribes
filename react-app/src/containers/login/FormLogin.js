@@ -1,5 +1,7 @@
 import {Formik, Form, ErrorMessage, Field} from "formik"
 import {validateEmail} from "../../functions";
+import {connect} from "react-redux";
+import {logInOperation} from "../../operations/operationsUser";
 
 const FormLogin = ({logIn, userErrors, userClearErrors}) => {
 
@@ -25,4 +27,11 @@ const FormLogin = ({logIn, userErrors, userClearErrors}) => {
     )
 }
 
-export default FormLogin
+const mapDispatchToProps = dispatch => {
+    return {
+        logIn: email => {
+            dispatch(logInOperation(email))
+        }
+    }
+}
+export default connect(undefined, mapDispatchToProps)(FormLogin);

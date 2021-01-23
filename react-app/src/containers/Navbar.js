@@ -1,5 +1,7 @@
 import {Link} from "react-router-dom";
 import '../styles/Navbar.css'
+import {connect} from "react-redux";
+import {logOutAction} from "../actions/actionsUser";
 
 const Navbar = ({user, logOut}) => {
     return (
@@ -20,4 +22,11 @@ const Navbar = ({user, logOut}) => {
         </div>
     )
 }
-export default Navbar
+const mapDispatchToProps = dispatch => {
+    return {
+        logOut: () => {
+            dispatch(logOutAction())
+        }
+    }
+}
+export default connect(undefined, mapDispatchToProps)(Navbar);

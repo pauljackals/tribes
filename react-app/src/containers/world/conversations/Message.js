@@ -1,4 +1,6 @@
 import {useState} from 'react'
+import {deleteMessageOperation, updateMessageOperation} from "../../../operations/operationsConversations";
+import {connect} from "react-redux";
 
 const Message = ({message, deleteMessage, user, updateMessage}) => {
     const [edit, setEdit] = useState(false)
@@ -43,4 +45,15 @@ const Message = ({message, deleteMessage, user, updateMessage}) => {
         </>
     )
 }
-export default Message
+const mapDispatchToProps = dispatch => {
+    return {
+        deleteMessage: id => {
+            dispatch(deleteMessageOperation(id))
+        },
+        updateMessage: (id, content) => {
+            dispatch(updateMessageOperation(id, content))
+        }
+    }
+}
+
+export default connect(undefined, mapDispatchToProps)(Message);

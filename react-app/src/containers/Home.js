@@ -1,6 +1,9 @@
 import {useEffect, useState} from "react";
 import {Link, Redirect} from "react-router-dom";
 import '../styles/Home.css'
+import {createWorldsOperation, deleteWorldsOperation, fetchWorldsOperation} from "../operations/operationsWorlds";
+import {adminOperation, joinWorldOperation} from "../operations/operationsUser";
+import {connect} from "react-redux";
 
 const Home = ({user, worlds, fetchWorlds, joinWorld, createWorlds, deleteWorlds, admin}) => {
     const [joining, setJoining] = useState('')
@@ -82,4 +85,30 @@ const Home = ({user, worlds, fetchWorlds, joinWorld, createWorlds, deleteWorlds,
         </div>
     )
 }
-export default Home
+const mapStateToProps = state => {
+    return {
+        worlds: state.reducerWorlds
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchWorlds: () => {
+            dispatch(fetchWorldsOperation())
+        },
+        joinWorld: (idUser, idWorld) => {
+            dispatch(joinWorldOperation(idUser, idWorld))
+        },
+        createWorlds: id => {
+            dispatch(createWorldsOperation(id))
+        },
+        deleteWorlds: id => {
+            dispatch(deleteWorldsOperation(id))
+        },
+        admin: (name, admin) => {
+            dispatch(adminOperation(name, admin))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

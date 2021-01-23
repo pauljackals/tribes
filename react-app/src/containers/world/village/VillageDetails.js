@@ -2,6 +2,8 @@ import {useEffect, useState} from 'react'
 import {defaultVillageName} from "../../../functions";
 import {Link, Redirect} from "react-router-dom";
 import '../../../styles/VillageDetails.css'
+import {getVillageDetailsOperation, patchVillageNameOperation} from "../../../operations/operationsVillage";
+import {connect} from "react-redux";
 
 const VillageDetails = ({id, user, village, getVillageDetails, patchVillageName}) => {
     useEffect(() => {
@@ -51,4 +53,21 @@ const VillageDetails = ({id, user, village, getVillageDetails, patchVillageName}
         </div>
     )
 }
-export default VillageDetails
+const mapStateToProps = state => {
+    return {
+        village: state.reducerVillage
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getVillageDetails: idVillage => {
+            dispatch(getVillageDetailsOperation(idVillage))
+        },
+        patchVillageName: (idVillage, name) => {
+            dispatch(patchVillageNameOperation(idVillage, name))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(VillageDetails);

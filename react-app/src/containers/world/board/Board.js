@@ -1,4 +1,5 @@
 import BoardField from "./BoardField";
+import {connect} from 'react-redux'
 
 const Board = ({board, user, users}) => {
 
@@ -12,4 +13,9 @@ const Board = ({board, user, users}) => {
         </table>
     )
 }
-export default Board
+const mapStateToProps = state => {
+    return {
+        board: state.reducerBoard
+    }
+}
+export default connect(mapStateToProps)(Board)

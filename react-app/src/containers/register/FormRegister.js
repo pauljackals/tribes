@@ -1,5 +1,7 @@
 import {Formik, Form, ErrorMessage, Field} from "formik"
 import {validateEmail} from "../../functions";
+import {registerOperation} from "../../operations/operationsUser";
+import {connect} from "react-redux";
 
 const FormRegister = ({register, userClearErrors, userErrors}) => {
 
@@ -39,4 +41,11 @@ const FormRegister = ({register, userClearErrors, userErrors}) => {
     )
 }
 
-export default FormRegister
+const mapDispatchToProps = dispatch => {
+    return {
+        register: (name, email) => {
+            dispatch(registerOperation(name, email))
+        }
+    }
+}
+export default connect(undefined, mapDispatchToProps)(FormRegister);

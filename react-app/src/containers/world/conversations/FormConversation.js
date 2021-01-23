@@ -1,4 +1,6 @@
 import {Formik, Field, Form, FieldArray, ErrorMessage} from "formik";
+import {createConversationOperation} from "../../../operations/operationsConversations";
+import {connect} from "react-redux";
 
 const FormConversation = ({world, user, createConversation}) => {
     const validateTitle = (min, max) => text => {
@@ -71,4 +73,12 @@ const FormConversation = ({world, user, createConversation}) => {
         </Formik>
     )
 }
-export default FormConversation
+const mapDispatchToProps = dispatch => {
+    return {
+        createConversation: (idWorld, idsUsers, title) => {
+            dispatch(createConversationOperation(idWorld, idsUsers, title))
+        }
+    }
+}
+
+export default connect(undefined, mapDispatchToProps)(FormConversation);

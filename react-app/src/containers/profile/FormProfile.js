@@ -1,5 +1,7 @@
 import {Formik, Form, ErrorMessage, Field} from "formik"
 import {validateEmail} from "../../functions";
+import {editProfileOperation} from "../../operations/operationsUser";
+import {connect} from 'react-redux'
 
 const FormProfile = ({editProfile, userClearErrors, userErrors, user}) => {
 
@@ -39,4 +41,11 @@ const FormProfile = ({editProfile, userClearErrors, userErrors, user}) => {
     )
 }
 
-export default FormProfile
+const mapDispatchToProps = dispatch => {
+    return {
+        editProfile: (id, name, email) => {
+            dispatch(editProfileOperation(id, name, email))
+        }
+    }
+}
+export default connect(undefined, mapDispatchToProps)(FormProfile)

@@ -1,7 +1,7 @@
 import FormLogin from "./FormLogin";
 import {Redirect} from 'react-router-dom'
 
-const Login = ({logIn, userErrors, userClearErrors, redirect}) => {
+const Login = ({userErrors, userClearErrors, redirect}) => {
     if(redirect) {
         return (
             <Redirect to={'/'}/>
@@ -10,7 +10,7 @@ const Login = ({logIn, userErrors, userClearErrors, redirect}) => {
     return (
         <div className="Login">
             <h1>Login</h1>
-            <FormLogin logIn={logIn} userErrors={userErrors} userClearErrors={userClearErrors}/>
+            <FormLogin userErrors={userErrors} userClearErrors={userClearErrors}/>
         </div>
     )
 }

@@ -2,8 +2,10 @@ import {Link, Redirect} from "react-router-dom";
 import {useEffect} from 'react'
 import '../../../styles/Conversations.css'
 import FormConversation from "./FormConversation";
+import {getConversationsOperation} from "../../../operations/operationsConversations";
+import {connect} from "react-redux";
 
-const Conversations = ({user, idWorld, conversations, getConversations, world, createConversation}) => {
+const Conversations = ({user, idWorld, conversations, getConversations, world}) => {
     useEffect(() => {
         if(user.loggedIn){
             getConversations(user._id, idWorld)
@@ -24,7 +26,7 @@ const Conversations = ({user, idWorld, conversations, getConversations, world, c
             </div>
             <h3>Conversations</h3>
 
-            <FormConversation world={world} user={user} createConversation={createConversation}/>
+            <FormConversation world={world} user={user}/>
             <table className="conversations">
                 <tbody>
                     <tr>
@@ -45,4 +47,12 @@ const Conversations = ({user, idWorld, conversations, getConversations, world, c
         </div>
     )
 }
-export default Conversations
+const mapDispatchToProps = dispatch => {
+    return {
+        getConversations: (idUser, idWorld) => {
+            dispatch(getConversationsOperation(idUser, idWorld))
+        }
+    }
+}
+
+export default connect(undefined, mapDispatchToProps)(Conversations);
