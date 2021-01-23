@@ -20,7 +20,7 @@ export const fetchWorldsOperation = () => dispatch =>
             WORLDS_GET_FAILURE]
     }));
 
-export const createWorldsOperation = (id, size) => dispatch =>
+export const createWorldsOperation = id => dispatch =>
     dispatch(createAction({
         endpoint: getApiUrl(`/worlds`),
         method: 'POST',
@@ -28,7 +28,7 @@ export const createWorldsOperation = (id, size) => dispatch =>
             "Accept": "application/json",
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({id, size}),
+        body: JSON.stringify({id}),
         types: [
             WORLDS_CREATE_REQUEST,
             WORLDS_CREATE_SUCCESS,

@@ -178,8 +178,8 @@ const mapDispatchToProps = (dispatch) => {
         deleteConversation: id => {
             dispatch(deleteConversationOperation(id))
         },
-        createWorlds: (id, size) => {
-            dispatch(createWorldsOperation(id, size))
+        createWorlds: id => {
+            dispatch(createWorldsOperation(id))
         },
         deleteWorlds: id => {
             dispatch(deleteWorldsOperation(id))

@@ -20,7 +20,6 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     const body = req.body;
     const worldNew = new World({
-        size: body.size,
         id: body.id
     });
     const world = await worldNew.save()

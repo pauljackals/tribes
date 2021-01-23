@@ -38,14 +38,12 @@ const Home = ({user, worlds, fetchWorlds, joinWorld, createWorlds, deleteWorlds,
                         event.preventDefault()
                         const target = event.target
                         const id = target.id.value
-                        const size = target.size.value
-                        if(!isNaN(id) && !isNaN(size)) {
-                            createWorlds(parseInt(id), parseInt(size))
-                            event.target.reset()
+                        if(!isNaN(id)) {
+                            createWorlds(parseInt(id))
+                            target.reset()
                         }
                     }}>
                         <input type="number" name="id" placeholder="id"/>
-                        <input type="number" name="size" placeholder="size"/>
                         <input type="submit" value="create"/>
                     </form>
                     {worlds.length ?

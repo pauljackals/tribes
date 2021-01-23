@@ -8,7 +8,6 @@ const worldSchema = new Schema({
     },
     size: {
         type: Number,
-        required: true,
         default: 10
     },
     users: [
