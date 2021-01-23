@@ -22,8 +22,12 @@ router.post('/', async (req, res) => {
     const worldNew = new World({
         id: body.id
     });
-    const world = await worldNew.save()
-    return res.send({world: {__v: world.__v, _id: world._id, id: world.id}});
+    try {
+        const world = await worldNew.save()
+        return res.send({world: {__v: world.__v, _id: world._id, id: world.id}});
+    } catch (e) {
+        return res.status(409).send({error: e})
+    }
 });
 
 router.delete('/:id', async (req, res) => {
