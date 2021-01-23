@@ -46,3 +46,74 @@ h1 {
     align-items: center;
     justify-content: center;
 }
+@media only screen and (max-width: 768px) {
+    h1 {
+        font-size: 45px;
+    }
+    h2 {
+        font-size: 35px;
+    }
+    h3 {
+        font-size: 30px;
+    }
+    span, a, td, th, select, label, textarea, .error {
+        font-size: 25px;
+    }
+    button, input {
+        font-size: 20px;
+    }
+    .players input{
+        font-size: initial;
+    }
+    input[type="submit"] {
+        font-size: 20px;
+    }
+    .board td span {
+        font-size: 30px;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .Navbar {
+        justify-content: center;
+    }
+    h1 {
+        font-size: 35px;
+    }
+    h2 {
+        font-size: 30px;
+    }
+    h3 {
+        font-size: 25px;
+    }
+    span, a, td, th, label, textarea, .error {
+        font-size: 20px;
+    }
+    button, input, select {
+        font-size: 15px;
+    }
+    .players input {
+        font-size: 10px;
+        width: 90%;
+    }
+    input[type="submit"] {
+        font-size: 15px;
+    }
+    .Home form {
+        flex-direction: column;
+        display: flex;
+    }
+    td, td span, th, td a {
+        font-size: 15px;
+    }
+    .players th, .players td {
+        width: 33vw;
+    }
+    .board td span {
+        font-size: 20px;
+    }
+    .board td {
+        width: 30px;
+        height: 30px;
+    }
+}
