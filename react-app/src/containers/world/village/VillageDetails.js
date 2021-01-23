@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import {defaultVillageName} from "../../../functions";
 import {Link, Redirect} from "react-router-dom";
+import '../../../styles/VillageDetails.css'
 
 const VillageDetails = ({id, user, village, getVillageDetails, patchVillageName}) => {
     useEffect(() => {
@@ -32,7 +33,9 @@ const VillageDetails = ({id, user, village, getVillageDetails, patchVillageName}
     return (
         <div className="VillageDetails">
             <h1>World {village.world.id}</h1>
-            <Link to={location => location.pathname.split('/village')[0]}><button>return</button></Link>
+            <div className="button-middle">
+                <Link to={location => location.pathname.split('/village')[0]}><button>return</button></Link>
+            </div>
             <h2>{
                 !edit ?
                     <>

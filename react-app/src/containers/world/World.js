@@ -20,10 +20,14 @@ const World = ({user, id, board, playWorld, world, leaveWorld}) => {
     return (
         <div className="World">
             <h1>World {world.id}</h1>
-            <Link to="/"><button onClick={() => leaveWorld(user._id, world._id)}>unlink from world</button></Link>
-            <Link to={location => `${location.pathname}/conversations`}><button>conversations</button></Link>
+            <div className="button-middle">
+                <Link to={location => `${location.pathname}/conversations`}><button>conversations</button></Link>
+            </div>
             <Board users={world.users} board={board} user={user}/>
-            <Players world={world}/>
+            <Players world={world} user={user}/>
+            <div className="button-middle">
+                <Link to="/"><button onClick={() => leaveWorld(user._id, world._id)}>unlink from world</button></Link>
+            </div>
         </div>
     )
 }

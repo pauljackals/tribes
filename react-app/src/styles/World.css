@@ -1,5 +1,7 @@
 .board {
     border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
 }
 .board td {
     border: 1px solid black;
@@ -49,13 +51,25 @@ td:hover .name-popup {
 
 .players {
     border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
 }
 .players td, .players th {
     border: 1px solid black;
     text-align: left;
+    background-color: white;
 }
 .players th {
     cursor: pointer;
     user-select: none;
     -moz-user-select: none;
+    background-color: grey;
+}
+.players .player-you td {
+    background-color: lightsteelblue;
+}
+.World h1, .World h3 {
+    text-align: center;
+    margin-left: 0;
 }

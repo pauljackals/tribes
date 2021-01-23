@@ -19,7 +19,9 @@ const Conversations = ({user, idWorld, conversations, getConversations, world, c
     return (
         <div className="Conversations">
             <h1>World {world.id}</h1>
-            <Link to={location => location.pathname.split('/conversations')[0]}><button>return</button></Link>
+            <div className="button-middle">
+                <Link to={location => location.pathname.split('/conversations')[0]}><button>return</button></Link>
+            </div>
             <h3>Conversations</h3>
 
             <FormConversation world={world} user={user} createConversation={createConversation}/>

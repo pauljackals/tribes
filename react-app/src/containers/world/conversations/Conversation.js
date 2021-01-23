@@ -1,6 +1,7 @@
 import {Link, Redirect} from "react-router-dom";
 import Message from "./Message";
 import {useState} from 'react'
+import '../../../styles/Conversation.css'
 
 const Conversation = ({id, conversations, user, sendMessage, deleteMessage, updateMessage, world, inviteUser, kickUser, editTitle, deleteConversation}) => {
 
@@ -69,20 +70,24 @@ const Conversation = ({id, conversations, user, sendMessage, deleteMessage, upda
     return (
         <div className="Conversation">
             <h1>World {conversation.world.id}</h1>
-            <Link to={handleReturn}><button>return</button></Link>
+            <div className="button-middle">
+                <Link to={handleReturn}><button>return</button></Link>
+            </div>
             {error ? <div className="error">Title must not be empty</div> : ''}
-            <h3>{edit ?
+            <h2>{edit ?
                 <>
                     <input placeholder="title" defaultValue={conversation.title} onChange={editChange} onBlur={() => setError(false)}/>
                     <button onClick={editSave}>save</button>
                     <button onClick={editCancel}>cancel</button>
                 </> :
                 <>{conversation.title}<button onClick={editStart}>edit</button></>
-            }</h3>
-            {conversation.users.length > 1 ?
-                <Link to={handleReturn}><button onClick={() => kickUser(conversation._id, user._id)}>leave conversation</button></Link> :
-                <Link to={handleReturn}><button onClick={() => deleteConversation(conversation._id)}>delete conversation</button></Link>
-            }
+            }</h2>
+            <div className="button-middle">
+                {conversation.users.length > 1 ?
+                    <Link to={handleReturn}><button onClick={() => kickUser(conversation._id, user._id)}>leave conversation</button></Link> :
+                    <Link to={handleReturn}><button onClick={() => deleteConversation(conversation._id)}>delete conversation</button></Link>
+                }
+            </div>
             {usersOthers.length ?
                 <form onSubmit={handleInvite}>
                     <select name="user">
@@ -102,7 +107,7 @@ const Conversation = ({id, conversations, user, sendMessage, deleteMessage, upda
                 </tbody>
             </table>
             <ul>
-                {conversation.messages.map((message, index) => <li key={index}>
+                {conversation.messages.map((message, index) => <li key={index} className={message.user._id===user._id ? "message-you" : ""}>
                     <Message message={message} deleteMessage={deleteMessage} user={user} updateMessage={updateMessage}/>
                 </li>)}
             </ul>

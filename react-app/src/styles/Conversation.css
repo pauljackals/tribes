@@ -1,0 +1,21 @@
+.Conversation h1, .Conversation h2 {
+    text-align: center;
+    margin-left: 0;
+}
+.Conversation form, .Conversation table, .Conversation ul {
+    margin-left: auto;
+    margin-right: auto;
+}
+.Conversation form, .Conversation ul {
+    width: -moz-fit-content;
+    width: fit-content;
+}
+.Conversation li {
+    list-style: none;
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.Conversation li.message-you {
+    background-color: lightsteelblue;
+}

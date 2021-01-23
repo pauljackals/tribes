@@ -2,7 +2,7 @@ import {defaultVillageName} from "../../functions";
 import {useState, Fragment} from 'react'
 import {Link} from "react-router-dom";
 
-const Players = ({world}) => {
+const Players = ({world, user}) => {
     const [filters, setFilters] = useState({user: '', village: '', villagesNumber: -1})
     const [sorts, setSorts] = useState({user: 0, village: 0, villagesNumber: 0})
     const filterHandle = filter => {
@@ -63,7 +63,7 @@ const Players = ({world}) => {
                         if(villageFirst && isFilteredVillagesNumber) {
                             return (
                                 <Fragment key={indexWorldUser}>
-                                    <tr>
+                                    <tr className={worldUser._id===user._id ? "player-you" : ""}>
                                         <td rowSpan={userVillages.length}>{worldUser.name}</td>
                                         <td><Link to={location => `${location.pathname}/village/${villageFirst._id}/details`}>{villageFirst.name ? villageFirst.name : defaultVillageName(worldUser.name)}</Link></td>
                                         <td rowSpan={userVillages.length}>{userVillages.length}</td>

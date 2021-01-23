@@ -22,7 +22,7 @@ const FormProfile = ({editProfile, userClearErrors, userErrors, user}) => {
             }}
         >
             {() => (
-                <Form onBlur={() => userClearErrors()}>
+                <Form onBlur={() => userClearErrors()} className="form-credentials">
 
                     {userErrors.name ? <div className="error">Name must be unique</div> : ''}
                     <ErrorMessage name="name" component="div" className="error"/>

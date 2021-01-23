@@ -3,7 +3,37 @@
 }
 .conversations td, .conversations th {
     border: 1px solid black;
+    background-color: white;
 }
 .conversations td span {
     display: block;
+}
+.conversations th {
+    background-color: grey;
+}
+.Conversations h1, .Conversations h3 {
+    margin-left: 0;
+    text-align: center;
+}
+.Conversations form {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    width: -moz-fit-content;
+}
+.Conversations li {
+    list-style: none;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.Conversations li button {
+    padding: 0;
+    margin: 5px;
+}
+.Conversations table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
 }

@@ -13,7 +13,7 @@ const FormLogin = ({logIn, userErrors, userClearErrors}) => {
             }}
         >
             {() => (
-                <Form onBlur={() => userClearErrors()}>
+                <Form onBlur={() => userClearErrors()} className="form-credentials">
                     {userErrors.email ? <div className="error">Credentials don't match</div> : ''}
 
                     <ErrorMessage name="email" component="div" className="error"/>

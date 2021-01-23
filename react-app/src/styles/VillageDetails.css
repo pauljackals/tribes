@@ -1,0 +1,8 @@
+.VillageDetails h1, .VillageDetails h2 {
+    text-align: center;
+    margin-left: 0;
+}
+.VillageDetails > span {
+    text-align: center;
+    display: block;
+}

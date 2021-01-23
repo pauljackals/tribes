@@ -20,3 +20,29 @@ body {
 #root {
     background-color: tan;
 }
+h1 {
+    margin-left: 10px;
+}
+.form-credentials {
+    margin-left: 10px;
+}
+.form-credentials input {
+    display: block;
+    margin-bottom: 10px;
+}
+.form-credentials button[type="submit"] {
+    margin-left: 0;
+}
+.error {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    margin-bottom: 5px;
+    width: fit-content;
+    width: -moz-fit-content;
+}
+.button-middle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
