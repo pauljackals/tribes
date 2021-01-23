@@ -70,7 +70,7 @@ const Players = ({world, user}) => {
                                     </tr>
                                     {
                                         villagesRest.map((village, indexVillage) =>
-                                            <tr key={indexVillage}>
+                                            <tr key={indexVillage} className={worldUser._id===user._id ? "player-you" : ""}>
                                                 <td><Link to={location => `${location.pathname}/village/${village._id}/details`}>{village.name ? village.name : defaultVillageName(worldUser.name)}</Link></td>
                                             </tr>
                                         )
