@@ -1,17 +1,9 @@
 import {Formik, Form, ErrorMessage, Field} from "formik"
-import {validateEmail} from "../../functions";
+import {validateEmail, validateName} from "../../functions";
 import {registerOperation} from "../../operations/operationsUser";
 import {connect} from "react-redux";
 
 const FormRegister = ({register, userClearErrors, userErrors}) => {
-
-    const validateName = name => {
-        if (name.length<1){
-            return 'Name must not be empty'
-        } else if (name.length>20){
-            return 'Max 20 characters'
-        }
-    }
 
     return (
         <Formik

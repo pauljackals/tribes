@@ -6,6 +6,13 @@ export const validateEmail = email => {
         return 'Max 128 characters'
     }
 }
+export const validateName = name => {
+    if (name.length<1){
+        return 'Name must not be empty'
+    } else if (name.length>20){
+        return 'Max 20 characters'
+    }
+}
 export const getApiUrl = endpoint => {
     return `http://localhost:5000${endpoint}`
 }

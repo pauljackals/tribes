@@ -1,15 +1,9 @@
 import {Formik, Form, ErrorMessage, Field} from "formik"
-import {validateEmail} from "../../functions";
+import {validateEmail, validateName} from "../../functions";
 import {editProfileOperation} from "../../operations/operationsUser";
 import {connect} from 'react-redux'
 
 const FormProfile = ({editProfile, userClearErrors, userErrors, user}) => {
-
-    const validateName = name => {
-        if (name.length<1){
-            return 'Name must not be empty'
-        }
-    }
 
     return (
         <Formik
@@ -28,11 +22,11 @@ const FormProfile = ({editProfile, userClearErrors, userErrors, user}) => {
 
                     {userErrors.name ? <div className="error">Name must be unique</div> : ''}
                     <ErrorMessage name="name" component="div" className="error"/>
-                    <Field name="name" type="text" placeholder="name" validate={validateName}/>
+                    <Field name="name" type="text" placeholder="name" validate={validateName} maxLength="20"/>
 
                     {userErrors.email ? <div className="error">Email must be unique</div> : ''}
                     <ErrorMessage name="email" component="div" className="error"/>
-                    <Field name="email" type="text" placeholder="email" validate={validateEmail}/>
+                    <Field name="email" type="text" placeholder="email" validate={validateEmail} maxLength="128"/>
 
                     <button type="submit">save</button>
                 </Form>
