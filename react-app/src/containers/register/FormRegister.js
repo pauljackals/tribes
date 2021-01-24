@@ -8,6 +8,8 @@ const FormRegister = ({register, userClearErrors, userErrors}) => {
     const validateName = name => {
         if (name.length<1){
             return 'Name must not be empty'
+        } else if (name.length>20){
+            return 'Max 20 characters'
         }
     }
 
@@ -28,11 +30,11 @@ const FormRegister = ({register, userClearErrors, userErrors}) => {
 
                     {userErrors.name ? <div className="error">Name must be unique</div> : ''}
                     <ErrorMessage name="name" component="div" className="error"/>
-                    <Field name="name" type="text" placeholder="name" validate={validateName}/>
+                    <Field name="name" type="text" placeholder="name" validate={validateName} maxLength="20"/>
 
                     {userErrors.email ? <div className="error">Email must be unique</div> : ''}
                     <ErrorMessage name="email" component="div" className="error"/>
-                    <Field name="email" type="text" placeholder="email" validate={validateEmail}/>
+                    <Field name="email" type="text" placeholder="email" validate={validateEmail} maxLength="128"/>
 
                     <button type="submit">register</button>
                 </Form>

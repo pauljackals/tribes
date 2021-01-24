@@ -22,8 +22,10 @@ const Conversation = ({id, conversations, user, sendMessage, world, inviteUser, 
     const handleSend = event => {
         event.preventDefault()
         const message = event.target.message.value
-        sendMessage(user._id, conversation._id, message, Date.now())
-        event.target.reset()
+        if(message.length && message.length <= 640) {
+            sendMessage(user._id, conversation._id, message, Date.now())
+            event.target.reset()
+        }
     }
     const sortCompare = (usr1, usr2) => {
         if(usr1.name > usr2.name) {
@@ -61,7 +63,7 @@ const Conversation = ({id, conversations, user, sendMessage, world, inviteUser, 
         setError(false)
     }
     const editSave = () => {
-        if(titleNew.length) {
+        if(titleNew.length && titleNew.length <= 20) {
             setEdit(false)
             editTitle(conversation._id, titleNew)
         } else {
@@ -75,7 +77,7 @@ const Conversation = ({id, conversations, user, sendMessage, world, inviteUser, 
             <div className="button-middle">
                 <Link to={handleReturn}><button>return</button></Link>
             </div>
-            {error ? <div className="error">Title must not be empty</div> : ''}
+            {error ? <div className="error">Title must not be empty and longer than 20 characters</div> : ''}
             <h2>{edit ?
                 <>
                     <input placeholder="title" defaultValue={conversation.title} onChange={editChange} onBlur={() => setError(false)}/>
@@ -114,7 +116,7 @@ const Conversation = ({id, conversations, user, sendMessage, world, inviteUser, 
                 </li>)}
             </ul>
             <form onSubmit={handleSend}>
-                <textarea name="message" placeholder="message"/>
+                <textarea name="message" placeholder="message" maxLength="640"/>
                 <input type="submit" value="send"/>
             </form>
         </div>

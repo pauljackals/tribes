@@ -7,7 +7,7 @@ const Message = ({message, deleteMessage, user, updateMessage}) => {
     const [error, setError] = useState(false)
     const [content, setContent] = useState('')
     const updateHandle = () => {
-        if(content.length) {
+        if(content.length && content.length <= 640) {
             updateMessage(message._id, content)
             cancel()
         } else {
@@ -36,7 +36,7 @@ const Message = ({message, deleteMessage, user, updateMessage}) => {
                 ) : ''
             }
             <div>
-                {error ? <div className="error">Message must not be empty</div> : ''}
+                {error ? <div className="error">Message must not be empty and longer than 640 characters</div> : ''}
                 {edit ?
                     <textarea placeholder="message" defaultValue={message.content} onChange={inputHandle} onBlur={() => setError(false)}/> :
                     message.content

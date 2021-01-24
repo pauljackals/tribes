@@ -27,9 +27,11 @@ const VillageDetails = ({id, user, village, getVillageDetails, patchVillageName}
         setEdit(true)
     }
     const saveHandle = () => {
-        setEdit(false)
-        patchVillageName(village._id, villageNameNew)
-        setVillageNameNew('')
+        if(villageNameNew.length <= 24) {
+            setEdit(false)
+            patchVillageName(village._id, villageNameNew)
+            setVillageNameNew('')
+        }
     }
 
     return (
@@ -45,7 +47,7 @@ const VillageDetails = ({id, user, village, getVillageDetails, patchVillageName}
                         {user._id===village.user._id ? <button onClick={editHandle}>edit</button> : ''}
                     </> :
                     <>
-                        <input onChange={event => setVillageNameNew(event.target.value)} placeholder={defaultVillageName(user.name)} defaultValue={villageName}/>
+                        <input onChange={event => setVillageNameNew(event.target.value)} placeholder={defaultVillageName(user.name)} defaultValue={villageName} maxLength="24"/>
                         <button onClick={saveHandle}>save</button><button onClick={() => setEdit(false)}>cancel</button>
                     </>
             }</h2>

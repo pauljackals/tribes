@@ -19,3 +19,7 @@
 .Conversation li.message-you {
     background-color: lightsteelblue;
 }
+.Conversation .error {
+    margin-left: auto;
+    margin-right: auto;
+}
