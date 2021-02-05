@@ -1,10 +1,37 @@
-.Conversation h1, .Conversation h2 {
+.Conversation h1 {
     text-align: center;
     margin-left: 0;
 }
-.Conversation form, .Conversation table, .Conversation ul {
+.Conversation h2 {
+    text-align: center;
+    border-bottom: 1px solid black;
+    width: fit-content;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.Conversation form, .Conversation ul {
+    margin-left: auto;
+    margin-right: auto;
+}
+.Conversation ul {
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 400px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.Conversation table {
+    border: 1px solid black;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+.Conversation tbody {
+    overflow: hidden;
+    max-height: 150px;
+    display: block;
+    overflow-y: scroll;
 }
 .Conversation form, .Conversation ul {
     width: -moz-fit-content;
@@ -15,6 +42,11 @@
     background-color: white;
     padding: 10px;
     margin-bottom: 10px;
+    border-radius: 5px;
+}
+.Conversation li div {
+    max-width: 380px;
+    word-wrap: break-word;
 }
 .Conversation li.message-you {
     background-color: lightsteelblue;

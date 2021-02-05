@@ -86,12 +86,6 @@ const Conversation = ({id, conversations, user, sendMessage, world, inviteUser, 
                 </> :
                 <>{conversation.title}<button onClick={editStart}>edit</button></>
             }</h2>
-            <div className="button-middle">
-                {conversation.users.length > 1 ?
-                    <Link to={handleReturn}><button onClick={() => kickUser(conversation._id, user._id)}>leave conversation</button></Link> :
-                    <Link to={handleReturn}><button onClick={() => deleteConversation(conversation._id)}>delete conversation</button></Link>
-                }
-            </div>
             {usersOthers.length ?
                 <form onSubmit={handleInvite}>
                     <select name="user">
@@ -111,7 +105,7 @@ const Conversation = ({id, conversations, user, sendMessage, world, inviteUser, 
                 </tbody>
             </table>
             <ul>
-                {conversation.messages.map((message, index) => <li key={index} className={message.user._id===user._id ? "message-you" : ""}>
+                {[...conversation.messages].reverse().map((message, index) => <li key={index} className={message.user._id===user._id ? "message-you" : ""}>
                     <Message message={message} user={user}/>
                 </li>)}
             </ul>
@@ -119,6 +113,12 @@ const Conversation = ({id, conversations, user, sendMessage, world, inviteUser, 
                 <textarea name="message" placeholder="message" maxLength="640"/>
                 <input type="submit" value="send"/>
             </form>
+            <div className="button-middle">
+                {conversation.users.length > 1 ?
+                    <Link to={handleReturn}><button onClick={() => kickUser(conversation._id, user._id)}>leave conversation</button></Link> :
+                    <Link to={handleReturn}><button onClick={() => deleteConversation(conversation._id)}>delete conversation</button></Link>
+                }
+            </div>
         </div>
     )
 }

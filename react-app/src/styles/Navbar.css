@@ -8,15 +8,22 @@
 .navbar-name {
     background-color: white;
     text-decoration: none;
-    padding: 2px;
+    padding: 5px;
     color: black;
+    border-radius: 5px;
 }
 .navbar-home{
-    color: black;
-    font-style: italic;
-    font-weight: bold;
     padding: 2px;
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 2em;
+    font-weight: bold;
+    font-style: normal;
+    color: black;
 }
 .navbar-home, .navbar-name {
     margin: 10px;
+}
+.navbar-buttons button:first-of-type {
+    margin-right: 10px;
 }

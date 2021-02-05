@@ -21,7 +21,7 @@ const Home = ({user, worlds, fetchWorlds, joinWorld, createWorlds, deleteWorlds,
         <div className="Home">
             {user.worlds.find(world => world===joining) ? <Redirect push to={`/world/${joining}`}/> : ''}
 
-            <h1>Tribes</h1>
+            <h1>Welcome to Tribes</h1>
             <ul>
                 {worlds.map((world, index) =>
                     <li key={index}>
