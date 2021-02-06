@@ -33,6 +33,7 @@ const Conversations = ({user, idWorld, conversations, getConversations, world}) 
                         <th>Title</th>
                         <th>Users</th>
                         <th>Messages</th>
+                        <th/>
                     </tr>
                     {conversations.map((conversation, index) =>
                         <tr key={index}>

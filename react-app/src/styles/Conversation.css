@@ -21,6 +21,7 @@
     max-height: 400px;
     display: flex;
     flex-direction: column-reverse;
+    padding-inline-start: 0;
 }
 .Conversation table {
     border: 1px solid black;
